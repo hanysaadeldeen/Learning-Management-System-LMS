@@ -35,3 +35,25 @@ This Learning Management System (LMS) is designed to provide a seamless educatio
 
 * For detailed installation and usage instructions, refer to the project's wiki or dedicated documentation files (if any).
 * Feel free to contribute to this project by following the contribution guidelines (if available).
+
+### Installation
+
+These instructions will guide you through setting up the LMS project on your local development environment.
+
+**Prerequisites:**
+
+* Node.js and npm (or yarn) installed on your system. You can check by running `node -v` and `npm -v` (or `yarn -v`) in your terminal.
+
+**Steps:**
+
+1. **Clone the Repository:**
+   git clone [https://github.com/your-username/your-repo.git](https://github.com/your-username/your-repo.git)
+2. **Navigate to the project directory:**
+   cd your-repo
+3. **Install dependencies:**
+   npm install
+4. **Run the development server:**
+   npm run dev
+
+
+
