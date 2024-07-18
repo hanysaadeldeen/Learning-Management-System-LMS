@@ -47,12 +47,16 @@ These instructions will guide you through setting up the LMS project on your loc
 **Steps:**
 
 1. **Clone the Repository:**
-   git clone [https://github.com/your-username/your-repo.git](https://github.com/your-username/your-repo.git)
-2. **Navigate to the project directory:**
+   ```bash
+   git clone https://github.com/hanysaadeldeen/Learning-Management-System-LMS.git
+3. **Navigate to the project directory:**
+   ```bash
    cd your-repo
-3. **Install dependencies:**
-   npm install
-4. **Run the development server:**
+5. **Install dependencies:**
+   ```bash
+    npm install
+7. **Run the development server:**
+     ```bash
    npm run dev
 
 
