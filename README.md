@@ -58,6 +58,3 @@ These instructions will guide you through setting up the LMS project on your loc
 7. **Run the development server:**
      ```bash
    npm run dev
-
-
-
