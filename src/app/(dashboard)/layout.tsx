@@ -8,8 +8,9 @@ type ChildrenTypeAuthLayout = {
 const DashboardLayout = ({ children }: ChildrenTypeAuthLayout) => {
   return (
     <div className="h-full md:flex gap-5">
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <Sidebare />
-      {children}
+      <main>{children}</main>
     </div>
   );
 };

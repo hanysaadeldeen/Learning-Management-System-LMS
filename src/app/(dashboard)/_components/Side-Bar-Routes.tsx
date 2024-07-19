@@ -1,3 +1,4 @@
+"use client";
 import { Compass, Layout } from "lucide-react";
 import React from "react";
 import SideBarItem from "./Side-Bar-Item";
@@ -14,9 +15,9 @@ const AllRoutes = [
     label: "Browes",
   },
 ];
-const SideBarRoutes = () => {
+export function SideBarRoutes() {
   return (
-    <div className="mt-8 w-full  flex flex-col gap-5">
+    <div className="mt-5  w-full flex flex-col ">
       {AllRoutes.map((route) => {
         return (
           <SideBarItem
@@ -29,6 +30,4 @@ const SideBarRoutes = () => {
       })}
     </div>
   );
-};
-
-export default SideBarRoutes;
+}
