@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebare from "./_components/Sidebare";
-import Navbar from "./_components/Navbar";
+import Navbar from "./_components/(navbar)/Navbar";
+import Sidebare from "./_components/(sidebar)/Sidebare";
 
 type ChildrenTypeAuthLayout = {
   children: React.ReactNode;
@@ -8,14 +8,18 @@ type ChildrenTypeAuthLayout = {
 
 const DashboardLayout = ({ children }: ChildrenTypeAuthLayout) => {
   return (
-    <div className="h-full md:flex ">
+    <>
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      <Sidebare />
-      <main>
-        <Navbar />
-        {children}
-      </main>
-    </div>
+      <div>
+        <div className="navbar md:pl-56 h-[80px] w-full flex fixed inset-y-0 z-40 bg-white">
+          <Navbar />
+        </div>
+        <div className="hidden md:flex w-56 h-full flex-col fixed inset-y-0 z-40">
+          <Sidebare />
+        </div>
+        <main className="md:pl-56 w-full pt-[80px]">{children}</main>
+      </div>
+    </>
   );
 };
 

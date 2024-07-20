@@ -1,9 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
-
 export default function Home() {
-  return (
-    <div className="">
-      <UserButton afterSignOutUrl="/" />
-    </div>
-  );
+  return <div className="md:flex h-full relative gap-5 w-full"></div>;
 }
