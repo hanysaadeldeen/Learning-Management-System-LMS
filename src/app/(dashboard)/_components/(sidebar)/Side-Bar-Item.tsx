@@ -37,7 +37,7 @@ const SideBarItem = ({ icon: Icon, label, href }: typePropRoute) => {
       <h3 className="py-3">{label}</h3>
       <div
         className={cn(
-          "border-r-4 ml-auto opacity-0 border-sky-700 h-full ",
+          "border-r-4 ml-auto absolute right-0  opacity-0 border-sky-700 h-full ",
           isActive && "opacity-100"
         )}
       />

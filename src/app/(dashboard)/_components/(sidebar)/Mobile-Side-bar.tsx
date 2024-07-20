@@ -1,6 +1,7 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { UserButton } from "@clerk/nextjs";
 import { Menu } from "lucide-react";
+import Sidebare from "./Sidebare";
 
 const MobileSideBar = () => {
   return (
@@ -9,7 +10,9 @@ const MobileSideBar = () => {
         <SheetTrigger className="hover:opacity-75 transition">
           <Menu />
         </SheetTrigger>
-        <SheetContent side={"left"}></SheetContent>
+        <SheetContent side={"left"} className="p-0">
+          <Sidebare />
+        </SheetContent>
       </Sheet>
     </div>
   );
