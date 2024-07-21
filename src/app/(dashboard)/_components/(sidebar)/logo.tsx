@@ -6,7 +6,7 @@ const Logo = () => {
     <Image
       width={65}
       height={65}
-      priority={true}
+      // priority={true}
       // quality={90}
       alt="Logo"
       src={"logo.svg"}
