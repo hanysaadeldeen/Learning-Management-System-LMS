@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
+  title: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
 });
@@ -30,19 +30,23 @@ const CreateCourse = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      title: "",
     },
   });
 
   const { isSubmitting, isValid } = form.formState;
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await axios.post("/api/teacher/courses", values);
+      console.log(values); // Log submitted values for debugging
+      const response = await axios.post("/api/courses", values);
+      toast.success("Course Created Successfully!");
       router.push(`/teacher/courses/${response.data.id}`);
-    } catch {}
-    toast.error("someThing went wrong try later!");
-  }
+    } catch (error) {
+      console.error("Client-side error:", error); // Log specific error details
+      toast.error("Something went wrong!");
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto flex md:items-center flex-col md:justify-center h-full p-6">
@@ -55,7 +59,7 @@ const CreateCourse = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="username"
+            name="title"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
@@ -74,7 +78,10 @@ const CreateCourse = () => {
               Submit
             </Button>
           </Link>
-          <Button type="submit" disabled={isSubmitting || !isValid}>
+          <Button
+            type="submit"
+            // disabled={isSubmitting || !isValid}
+          >
             Submit
           </Button>
         </form>
