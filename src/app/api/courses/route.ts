@@ -9,24 +9,19 @@ const courseSchema = z.object({
 });
 
 export const POST = async (req: Request) => {
-  console.log(req);
   try {
     const { userId } = auth();
     const { title } = await req.json();
-
-    console.log("see userId", userId);
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Client-side validation can be done here as well for better UX
-
     // Optional server-side validation using zod
     const validatedData = courseSchema.safeParse({ title });
     if (!validatedData.success) {
       return new NextResponse(JSON.stringify(validatedData.error), {
-        status: 400, // Bad Request
+        status: 400,
       });
     }
 
@@ -35,7 +30,6 @@ export const POST = async (req: Request) => {
     });
     return NextResponse.json(course);
   } catch (err) {
-    console.error("Prisma error:", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };

@@ -48,7 +48,10 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      toast.success("Course Created Successfully!");
+      await axios.patch(`/api/courses/${courseId}`, values);
+      ToogleEditTitle();
+      router.refresh();
+      toast.success("updated Success");
     } catch (error) {
       console.error("Client-side error:", error);
       toast.error("Something went wrong!");

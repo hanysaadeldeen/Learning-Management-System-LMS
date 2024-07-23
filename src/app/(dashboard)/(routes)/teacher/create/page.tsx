@@ -38,13 +38,11 @@ const CreateCourse = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values); // Log submitted values for debugging
       const response = await axios.post("/api/courses", values);
       toast.success("Course Created Successfully!");
       router.push(`/teacher/courses/${response.data.id}`);
     } catch (error) {
-      console.error("Client-side error:", error); // Log specific error details
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong in Client-side!");
     }
   };
 
