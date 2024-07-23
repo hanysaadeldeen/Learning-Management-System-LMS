@@ -35,7 +35,7 @@ type PropsFormType = {
   courseId: string;
 };
 
-const Titleform = ({ initialData, courseId }: PropsFormType) => {
+const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
   const [openEditTitle, setOpenEditTitle] = useState(false);
   const ToogleEditTitle = () => {
     setOpenEditTitle(!openEditTitle);
@@ -62,19 +62,19 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
   return (
     <div className="mt-6 bg-slate-100 p-4 rounded-md md:w-1/2">
       <div className="flex justify-between items-center    ">
-        <h2 className="    ">{initialData.title}</h2>
+        <h2 className="">Description</h2>
         <div
           onClick={ToogleEditTitle}
           className="cursor-pointer flex items-center gap-2"
         >
           {!openEditTitle ? (
             <>
-              <h3 className="  ">Edit Title</h3>
+              <h3 className=" ">Edit </h3>
               <LucidePen className="h-5 w-5" />
             </>
           ) : (
             <>
-              <h3 className="   text-red-400">cancel</h3>
+              <h3 className="  text-red-400">cancel</h3>
               <FaRegTimesCircle size={20} color="red" />
             </>
           )}
@@ -90,9 +90,9 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        placeholder="Course Name"
-                        disabled={isSubmitting}
+                      <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        className="resize-none"
                         {...field}
                       />
                     </FormControl>
@@ -117,4 +117,4 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
   );
 };
 
-export default Titleform;
+export default DescriptionForm;

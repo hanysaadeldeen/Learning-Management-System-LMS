@@ -15,7 +15,12 @@ const SideBarItem = ({ icon: Icon, label, href }: typePropRoute) => {
   const pathName = usePathname();
   const router = useRouter();
 
-  const isActive = pathName === href;
+  const part1 = pathName.split("/").filter(Boolean);
+  const part2 = href.split("/").filter(Boolean);
+  const firstPartPath1 = part1.length > 0 ? part1[1] : null;
+  const firstPartPath2 = part2.length > 0 ? part2[1] : null;
+
+  const isActive = firstPartPath1 === firstPartPath2;
 
   const Onclick = () => {
     router.push(href);
