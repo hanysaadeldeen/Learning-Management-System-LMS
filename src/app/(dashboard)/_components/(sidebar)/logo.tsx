@@ -9,7 +9,7 @@ const Logo = () => {
       // priority={true}
       // quality={90}
       alt="Logo"
-      src={"logo.svg"}
+      src={"file:///C:/Users/Hany/Downloads/logoipsum-226.svg"}
     />
   );
 };

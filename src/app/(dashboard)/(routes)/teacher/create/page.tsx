@@ -75,13 +75,10 @@ const CreateCourse = () => {
           />
           <Link href={"/"}>
             <Button className="mr-5" variant="ghost">
-              Submit
+              cancel
             </Button>
           </Link>
-          <Button
-            type="submit"
-            // disabled={isSubmitting || !isValid}
-          >
+          <Button type="submit" disabled={isSubmitting || !isValid}>
             Submit
           </Button>
         </form>
