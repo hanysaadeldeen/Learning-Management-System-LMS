@@ -62,7 +62,7 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
   return (
     <div className="mt-6 bg-slate-100 p-4 rounded-md md:w-1/2">
       <div className="flex justify-between items-center    ">
-        <h2 className="    ">{initialData.title}</h2>
+        <h2 className=" ">{initialData.title}</h2>
         <div
           onClick={ToogleEditTitle}
           className="cursor-pointer flex items-center gap-2"

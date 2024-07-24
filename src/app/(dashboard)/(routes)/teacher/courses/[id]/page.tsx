@@ -8,7 +8,6 @@ import {
   ListTodo,
   Sliders,
 } from "lucide-react";
-import Logo from "@/app/(dashboard)/_components/(sidebar)/logo";
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
 const CourseIdPage = async ({

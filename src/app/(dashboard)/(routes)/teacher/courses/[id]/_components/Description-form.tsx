@@ -13,27 +13,25 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LucidePen } from "lucide-react";
 import { useState } from "react";
+import { Course } from "@prisma/client";
 
-const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
 type PropsFormType = {
-  initialData: {
-    title: string;
-  };
+  initialData: Course;
   courseId: string;
 };
+
+const formSchema = z.object({
+  description: z.string().min(2, {
+    message: "description is required",
+  }),
+});
 
 const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
   const [openEditTitle, setOpenEditTitle] = useState(false);
@@ -43,7 +41,7 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: { description: initialData.description || "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -53,7 +51,7 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
       await axios.patch(`/api/courses/${courseId}`, values);
       ToogleEditTitle();
       router.refresh();
-      toast.success("updated Success");
+      toast.success("updated Description Success");
     } catch (error) {
       console.error("Client-side error:", error);
       toast.error("Something went wrong!");
@@ -86,12 +84,12 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
               <FormField
                 control={form.control}
-                name="title"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Textarea
-                        placeholder="Tell us a little bit about yourself"
+                        placeholder="About this course..."
                         className="resize-none"
                         {...field}
                       />
