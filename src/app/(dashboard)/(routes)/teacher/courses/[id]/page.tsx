@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
+import ImageUploadForm from "./_components/Image-Upload";
 const CourseIdPage = async ({
   params,
 }: {
@@ -54,6 +55,7 @@ const CourseIdPage = async ({
       </div>
       <Titleform initialData={course} courseId={course.id} />
       <DescriptionForm initialData={course} courseId={course.id} />
+      <ImageUploadForm initialData={course} courseId={course.id} />
     </section>
   );
 };

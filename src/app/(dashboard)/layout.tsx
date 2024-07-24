@@ -19,7 +19,7 @@ const DashboardLayout = ({ children }: ChildrenTypeAuthLayout) => {
           <Sidebare />
         </div>
       </div>
-      <main className="md:pl-56 h-full pt-[80px]">{children}</main>
+      <main className="md:pl-56 pt-[80px] pb-10">{children}</main>
       <Toaster position="top-right" reverseOrder={false} />
     </>
   );
