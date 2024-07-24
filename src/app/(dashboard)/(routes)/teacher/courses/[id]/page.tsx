@@ -11,6 +11,10 @@ import {
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
 import ImageUploadForm from "./_components/Image-Upload";
+import { Combobox } from "@/components/ui/combobox";
+
+const option = [{ value: "test", Label: "test2" }];
+
 const CourseIdPage = async ({
   params,
 }: {

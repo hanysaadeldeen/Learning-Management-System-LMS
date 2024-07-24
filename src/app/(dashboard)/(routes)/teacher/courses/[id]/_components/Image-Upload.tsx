@@ -29,12 +29,6 @@ const ImageUploadForm = ({ initialData, courseId }: PropsFormType) => {
     setOpenEditTitle(!openEditTitle);
   };
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { imgUrl: initialData.imgUrl || "" },
-  });
-
-  const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
