@@ -2,18 +2,12 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-import {
-  BadgeDollarSign,
-  LayoutDashboard,
-  ListTodo,
-  Sliders,
-} from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
 import ImageUploadForm from "./_components/Image-Upload";
-import { Combobox } from "@/components/ui/combobox";
-
-const option = [{ value: "test", Label: "test2" }];
+import CateogryForm from "./_components/Category-form";
+import { Label } from "@radix-ui/react-label";
 
 const CourseIdPage = async ({
   params,
@@ -27,6 +21,11 @@ const CourseIdPage = async ({
   const course = await db.course.findUnique({
     where: {
       id: params.id,
+    },
+  });
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
     },
   });
   if (!userId || !course) {
@@ -60,6 +59,14 @@ const CourseIdPage = async ({
       <Titleform initialData={course} courseId={course.id} />
       <DescriptionForm initialData={course} courseId={course.id} />
       <ImageUploadForm initialData={course} courseId={course.id} />
+      <CateogryForm
+        initialData={course}
+        courseId={course.id}
+        options={categories.map((category) => ({
+          value: category.id,
+          label: category.name,
+        }))}
+      />
     </section>
   );
 };
