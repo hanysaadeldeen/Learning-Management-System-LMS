@@ -43,15 +43,18 @@ const AttachmentForm = ({ initialData, courseId }: PropsFormType) => {
 
   const DeleteAttachment = async (id: string) => {
     try {
+      console.log(id);
+
       setDeletingId(id);
-      await axios.post(`/api/courses/${courseId}/attachment`, id);
+      await axios.delete(`/api/courses/${courseId}/attachment/${id}`);
       ToogleEditTitle();
-      router.refresh();
-      toast.success("Added File Success");
-      setDeletingId(null);
+      // router.refresh();
+      toast.success("Deleted File Success");
     } catch (error) {
       console.error("Client-side error:", error);
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong !");
+    } finally {
+      setDeletingId(null);
     }
   };
   return (
