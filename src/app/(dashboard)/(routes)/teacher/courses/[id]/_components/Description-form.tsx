@@ -58,8 +58,8 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
     }
   };
   return (
-    <div className="mt-6 bg-slate-100 p-4 rounded-md md:w-1/2">
-      <div className="flex justify-between items-center    ">
+    <div className="mt-6 bg-slate-100 p-4 rounded-md w-full">
+      <div className="flex justify-between mb-2 items-center    ">
         <h2 className="">Description</h2>
         <div
           onClick={ToogleEditTitle}
@@ -78,6 +78,13 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
           )}
         </div>
       </div>
+      {initialData.description ? (
+        <span className="text-slate-500 text- mt-4">
+          {initialData.description.slice(0, 60)}
+        </span>
+      ) : (
+        <span className="text-slate-500 text- mt-4">No Description</span>
+      )}
       {openEditTitle && (
         <div className="mt-4">
           <Form {...form}>

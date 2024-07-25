@@ -59,9 +59,9 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
     }
   };
   return (
-    <div className="mt-6 bg-slate-100 p-4 rounded-md md:w-1/2">
-      <div className="flex justify-between items-center    ">
-        <h2 className=" ">{initialData.title}</h2>
+    <div className="mt-6 bg-slate-100 p-4 rounded-md w-full ">
+      <div className="flex justify-between mb-2 items-center    ">
+        <h2 className=" ">title</h2>
         <div
           onClick={ToogleEditTitle}
           className="cursor-pointer flex items-center gap-2"
@@ -79,6 +79,9 @@ const Titleform = ({ initialData, courseId }: PropsFormType) => {
           )}
         </div>
       </div>
+      {initialData.title && (
+        <span className="text-slate-500 text- mt-4">{initialData.title}</span>
+      )}
       {openEditTitle && (
         <div className="mt-4">
           <Form {...form}>

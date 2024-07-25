@@ -42,7 +42,7 @@ const ImageUploadForm = ({ initialData, courseId }: PropsFormType) => {
     }
   };
   return (
-    <div className="mt-6 bg-slate-100 p-4 rounded-md md:w-1/2">
+    <div className="mt-6 bg-slate-100 p-4 rounded-md w-full">
       <div className="flex justify-between items-center    ">
         <h2 className="">Course Image</h2>
         <div
