@@ -15,7 +15,6 @@ async function main() {
         { name: "Fitness" },
       ],
     });
-    console.log("success");
   } catch (error) {
     console.log("this error from seeding the database category ", error);
   } finally {

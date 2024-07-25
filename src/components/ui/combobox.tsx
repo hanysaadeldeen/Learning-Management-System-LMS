@@ -50,29 +50,27 @@ export const Combobox = ({ options, value, onChange }: ComboboxInterface) => {
         <Command>
           <CommandInput placeholder="Search Option..." />
           <CommandEmpty>No Option found.</CommandEmpty>
-          <CommandList>
-            <CommandGroup>
-              {options &&
-                options.map((option) => (
-                  <CommandItem
-                    key={option.value}
-                    value={option.value}
-                    onSelect={() => {
-                      onChange(option.value ? "" : option.value);
-                      setOpen(false);
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === option.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {option.label}
-                  </CommandItem>
-                ))}
-            </CommandGroup>
-          </CommandList>
+          <CommandGroup>
+            {options &&
+              options.map((option) => (
+                <CommandItem
+                  key={option.value}
+                  value={option.value}
+                  onSelect={() => {
+                    onChange(option.value);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4 text-slate-700",
+                      value === option.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {option.label}
+                </CommandItem>
+              ))}
+          </CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>
