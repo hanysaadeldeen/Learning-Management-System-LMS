@@ -21,8 +21,8 @@ model Course {
   price Float?
   isPublished Boolean @default(false)
 
-  categoryId String?
-  category Category?  @relation(fields: [categoryId], references: [id])
+  CategoryId String?
+  category Category?  @relation(fields: [CategoryId], references: [id])
 
 
   attachment Attachment[]

@@ -14,6 +14,7 @@ import ImageUploadForm from "./_components/Image-Upload";
 import CateogryForm from "./_components/Category-form";
 import PriceFrom from "./_components/Price-form";
 import AttachmentForm from "./_components/Attachment-form";
+import ChapterForm from "./_components/Chapter-form";
 
 const CourseIdPage = async ({
   params,
@@ -24,11 +25,20 @@ const CourseIdPage = async ({
 }) => {
   const { userId } = auth();
 
+  if (!userId) {
+    return redirect("/");
+  }
   const course = await db.course.findUnique({
     where: {
       id: params.id,
+      userId,
     },
     include: {
+      chapter: {
+        orderBy: {
+          position: "asc",
+        },
+      },
       attachment: {
         orderBy: {
           created_at: "desc",
@@ -50,7 +60,8 @@ const CourseIdPage = async ({
     course.description,
     course.imgUrl,
     course.price,
-    course.categoryId,
+    course.CategoryId,
+    course.chapter.some((chapter) => chapter.isPublished),
   ];
 
   const totalFileds = requiredFields.length;
@@ -90,6 +101,7 @@ const CourseIdPage = async ({
             </div>
             <h2 className="text-xl">Course Chapter</h2>
           </div>
+          <ChapterForm initialData={course} courseId={course.id} />
           <div className="flex gap-2 items-center">
             <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
               <CircleDollarSign className="text-sky-700 w-5 h-5" />
