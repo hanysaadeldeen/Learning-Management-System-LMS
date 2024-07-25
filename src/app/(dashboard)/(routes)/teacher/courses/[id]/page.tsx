@@ -50,7 +50,7 @@ const CourseIdPage = async ({
     course.description,
     course.imgUrl,
     course.price,
-    course.CategoryId,
+    course.categoryId,
   ];
 
   const totalFileds = requiredFields.length;
