@@ -79,8 +79,8 @@ const DescriptionForm = ({ initialData, courseId }: PropsFormType) => {
         </div>
       </div>
       {initialData.description ? (
-        <span className="text-slate-500 text- mt-4">
-          {initialData.description.slice(0, 60)}
+        <span className="text-slate-500 line-clamp-1 text- mt-4">
+          {initialData.description}
         </span>
       ) : (
         <span className="text-slate-500 text- mt-4">No Description</span>

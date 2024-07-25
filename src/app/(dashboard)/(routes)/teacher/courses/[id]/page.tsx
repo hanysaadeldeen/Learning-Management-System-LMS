@@ -2,13 +2,18 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-import { CircleDollarSign, LayoutDashboard, ListCheck } from "lucide-react";
+import {
+  CircleDollarSign,
+  File,
+  LayoutDashboard,
+  ListCheck,
+} from "lucide-react";
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
 import ImageUploadForm from "./_components/Image-Upload";
 import CateogryForm from "./_components/Category-form";
-import { Label } from "@radix-ui/react-label";
 import PriceFrom from "./_components/Price-form";
+import AttachmentForm from "./_components/Attachment-form";
 
 const CourseIdPage = async ({
   params,
@@ -22,6 +27,13 @@ const CourseIdPage = async ({
   const course = await db.course.findUnique({
     where: {
       id: params.id,
+    },
+    include: {
+      attachment: {
+        orderBy: {
+          created_at: "desc",
+        },
+      },
     },
   });
   const categories = await db.category.findMany({
@@ -85,6 +97,13 @@ const CourseIdPage = async ({
             <h4 className="text-xl">Set Your Price</h4>
           </div>
           <PriceFrom initialData={course} courseId={course.id} />
+          <div className="flex gap-2 mt-7  items-center">
+            <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
+              <File className="text-sky-700 w-5 h-5" />
+            </div>
+            <h4 className="text-xl">Resources & Attachment</h4>
+          </div>
+          <AttachmentForm initialData={course} courseId={course.id} />
         </div>
       </div>
     </section>
