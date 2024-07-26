@@ -21,6 +21,7 @@ import { LucidePen } from "lucide-react";
 import { useState } from "react";
 import { Chapter, Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
+import { ChapterList } from "./Chapter-List";
 
 type ChapterForm = {
   initialData: Course & { chapter: Chapter[] };
@@ -49,15 +50,15 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
       await axios.post(`/api/courses/${courseId}/chapter`, values);
       ToogleEditTitle();
       router.refresh();
-      toast.success("updated Description Success");
+      toast.success("updated Shapter Success");
     } catch (error) {
       console.error("Client-side error:", error);
       toast.error("Something went wrong!");
     }
   };
   return (
-    <div className="mt-6 bg-slate-100 p-4 mb-7 rounded-md w-full">
-      <div className="flex justify-between mb-2 items-center    ">
+    <div className="mt-6 bg-slate-100  p-4 mb-7 rounded-md w-full">
+      <div className="flex justify-between mb-2 items-center">
         <h2 className="">Course Chpaters</h2>
         <div
           onClick={ToogleEditTitle}
@@ -65,7 +66,7 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
         >
           {!openEditTitle ? (
             <>
-              <h3 className=" ">Edit </h3>
+              <h3 className=" ">Add Chapter </h3>
               <LucidePen className="h-5 w-5" />
             </>
           ) : (
@@ -76,23 +77,19 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
           )}
         </div>
       </div>
-      {!openEditTitle && !initialData.chapter && (
+      {!openEditTitle && initialData.chapter.length === 0 && (
         <span className="text-slate-500 line-clamp-1 text- mt-4">
           No Chapter yet
         </span>
       )}
-      {!openEditTitle &&
-        initialData.chapter.length > 0 &&
-        initialData.chapter.map((chapter) => {
-          return (
-            <span
-              key={chapter.id}
-              className="text-slate-500 line-clamp-1 text- mt-4"
-            >
-              {chapter.chapterTitle}
-            </span>
-          );
-        })}
+      {!openEditTitle && initialData.chapter.length > 0 && (
+        <ChapterList
+          onEdit={() => {}}
+          items={initialData.chapter || []}
+          onRecord={() => {}}
+        />
+      )}
+
       {!openEditTitle && (
         <span className="text-slate-500 line-clamp-1 text- mt-4">
           Drag And Drop to Render the Chapter
