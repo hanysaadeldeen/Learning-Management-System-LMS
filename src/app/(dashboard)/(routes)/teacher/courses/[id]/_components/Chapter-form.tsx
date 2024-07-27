@@ -75,10 +75,19 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
       setIsUpdating(false);
     }
   };
+  const onEdit = (id: string) => {
+    router.push(`/teacher/courses/${courseId}/chapter/${id}`);
+    // try {
+    //   await axios.put(`/api/courses/${courseId}/chapter/${id}`);
+    // } catch (error) {
+    //   console.error("Client-side error:", error);
+    //   toast.error("Something went wrong in Reorder Items!");
+    // }
+  };
 
   return (
     <div className={"mt-6 bg-slate-100 relative p-4 mb-7 rounded-md w-full"}>
-      {!isupdating && (
+      {isupdating && (
         <div className="absolute w-full h-full left-0 top-0 flex items-center justify-center bg-slate-500/20 rounded-md ">
           <Loader2 className="animate-spin h-7 w-7 text-sky-500  " />
         </div>
@@ -105,12 +114,12 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
       </div>
       {!openEditTitle && initialData.chapter.length === 0 && (
         <span className="text-slate-500 line-clamp-1 text- mt-4">
-          No Chapter yet
+          No Chapters yet
         </span>
       )}
       {!openEditTitle && initialData.chapter.length > 0 && (
         <ChapterList
-          onEdit={() => {}}
+          onEdit={onEdit}
           items={initialData.chapter || []}
           onRecord={onReorder}
         />
