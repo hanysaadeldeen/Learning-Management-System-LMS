@@ -1,11 +1,13 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import axios from "axios";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
+import TitleformChapter from "./_components/Title-form-chapter";
+import DescriptionformChapter from "./_components/Description-form-chapter copy";
 
 type ChapterType = { params: { id: string; chapterId: string } };
 
@@ -40,15 +42,6 @@ const page = async ({ params }: ChapterType) => {
   const completedFileds = requiredFields.filter(Boolean).length;
   const uncopltetdFileds = `(${completedFileds} / ${totalFileds})`;
 
-  // const UpdateData = async () => {
-  //   try {
-  //     await axios.put(`/api/courses/${params.id}/chapter/${params.chapterId}`);
-  //   } catch (error) {
-  //     console.error("Client-side error:", error);
-  //     toast.error("Something went wrong in Reorder Items!");
-  //   }
-  // };
-
   return (
     <div className="p-6">
       <div className="w-full">
@@ -59,12 +52,29 @@ const page = async ({ params }: ChapterType) => {
           <ArrowLeft className="w-5 h-5 hover:opacity-60  " />
           <p> Back To Course </p>
         </Link>
-        <div className=" flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full">
           <div className="">
             <h2 className="text-2xl mb-3 font-medium">Chapter Creation</h2>
-            <p className="text-slate-600">
+            <p className="text-slate-600  mb-7 ">
               Complete all fields {uncopltetdFileds}
             </p>
+            <div className="flex gap-2 items-center">
+              <div className="w-11 h-10 bg-sky-200 flex justify-center items-center  rounded-full">
+                <LayoutDashboard className=" text-sky-700 " />
+              </div>
+              <h2 className="text-xl"> Customize Your Chapter</h2>
+            </div>
+
+            <TitleformChapter
+              initialData={Chapter}
+              chapterId={params.chapterId}
+              courseId={params.id}
+            />
+            {/* <DescriptionformChapter
+              initialData={Chapter}
+              chapterId={params.chapterId}
+              courseId={params.id}
+            /> */}
           </div>
         </div>
       </div>
