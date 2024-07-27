@@ -13,7 +13,9 @@ body,
 
 @import "~@uploadthing/react/styles.css";
 
-
+.ql-container {
+  font-size: 17px !important;
+}
 
 
 @layer base {

@@ -21,6 +21,8 @@ import toast from "react-hot-toast";
 import { LucidePen } from "lucide-react";
 import { useState } from "react";
 import { Chapter } from "@prisma/client";
+import { Editor } from "@/components/Editor";
+import { Preview } from "@/components/Preview";
 
 const formSchema = z.object({
   description: z.string().min(1),
@@ -88,9 +90,9 @@ const DescriptionformChapter = ({
           )}
         </div>
       </div>
-      {initialData.description && (
-        <span className="text-slate-500 line-clamp-1 text- mt-4">
-          {initialData.description}
+      {!openEditTitle && initialData.description && (
+        <span className="  text-slate-800 text-2xl line-clamp-1 text- mt-4">
+          <Preview value={initialData.description} />
         </span>
       )}
       {openEditTitle && (
@@ -103,22 +105,14 @@ const DescriptionformChapter = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        placeholder="Course Name"
-                        disabled={isSubmitting}
-                        {...field}
-                      />
+                      <Editor {...field} />
                     </FormControl>
                     <FormDescription></FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Link href={"/"}>
-                <Button className="mr-5" variant="ghost">
-                  cancel
-                </Button>
-              </Link>
+              <Link href={"/"}></Link>
               <Button type="submit" disabled={isSubmitting || !isValid}>
                 Submit
               </Button>

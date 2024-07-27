@@ -112,11 +112,7 @@ const TitleformChapter = ({
                   </FormItem>
                 )}
               />
-              <Link href={"/"}>
-                <Button className="mr-5" variant="ghost">
-                  cancel
-                </Button>
-              </Link>
+              <Link href={"/"}></Link>
               <Button type="submit" disabled={isSubmitting || !isValid}>
                 Submit
               </Button>
