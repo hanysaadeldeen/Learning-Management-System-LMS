@@ -56,7 +56,7 @@ model Chapter {
   id String  @id @default(cuid()) @map("_id")
   chapterTitle String 
   description String? 
-  videoUrl String?
+  videoUrl String? 
   position Int
   isCompleted Boolean? @default(false)
   isPublished Boolean @default(false)

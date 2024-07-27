@@ -20,15 +20,17 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LucidePen } from "lucide-react";
 import { useState } from "react";
+import { Chapter } from "@prisma/client";
 
 const formSchema = z.object({
   description: z.string().min(1),
 });
 
 type PropsFormType = {
-  initialData: {
-    description: string;
-  };
+  // initialData: {
+  //   description: string;
+  // };
+  initialData: Chapter;
   courseId: string;
   chapterId: string;
 };
@@ -45,7 +47,8 @@ const DescriptionformChapter = ({
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    // defaultValues: initialData,
+    defaultValues: { description: initialData.description || "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -67,7 +70,7 @@ const DescriptionformChapter = ({
   return (
     <div className="mt-6 bg-slate-100 p-4 rounded-md w-full ">
       <div className="flex justify-between mb-2 items-center    ">
-        <h2 className=" ">Chapter Description</h2>
+        <h2 className=" ">Description</h2>
         <div
           onClick={ToogleEditTitle}
           className="cursor-pointer flex items-center gap-2"
@@ -86,7 +89,7 @@ const DescriptionformChapter = ({
         </div>
       </div>
       {initialData.description && (
-        <span className="text-slate-500 text- mt-4">
+        <span className="text-slate-500 line-clamp-1 text- mt-4">
           {initialData.description}
         </span>
       )}

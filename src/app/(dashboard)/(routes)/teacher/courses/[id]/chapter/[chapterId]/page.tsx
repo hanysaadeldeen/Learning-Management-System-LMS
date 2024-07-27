@@ -53,7 +53,7 @@ const page = async ({ params }: ChapterType) => {
           <p> Back To Course </p>
         </Link>
         <div className="flex items-center justify-between w-full">
-          <div className="">
+          <div className="w-full">
             <h2 className="text-2xl mb-3 font-medium">Chapter Creation</h2>
             <p className="text-slate-600  mb-7 ">
               Complete all fields {uncopltetdFileds}
@@ -64,17 +64,20 @@ const page = async ({ params }: ChapterType) => {
               </div>
               <h2 className="text-xl"> Customize Your Chapter</h2>
             </div>
-
-            <TitleformChapter
-              initialData={Chapter}
-              chapterId={params.chapterId}
-              courseId={params.id}
-            />
-            {/* <DescriptionformChapter
-              initialData={Chapter}
-              chapterId={params.chapterId}
-              courseId={params.id}
-            /> */}
+            <div className="max-lg:flex-col gap-10 flex  w-full">
+              <div className="max-lg:w-full w-1/2">
+                <TitleformChapter
+                  initialData={Chapter}
+                  chapterId={params.chapterId}
+                  courseId={params.id}
+                />
+                <DescriptionformChapter
+                  initialData={Chapter}
+                  chapterId={params.chapterId}
+                  courseId={params.id}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
