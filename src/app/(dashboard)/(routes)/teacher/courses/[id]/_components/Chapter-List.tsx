@@ -1,7 +1,7 @@
 "use client";
 
 import { Chapter } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   DragDropContext,
@@ -22,13 +22,42 @@ type ChapterLityType = {
 
 export const ChapterList = ({ onEdit, items, onRecord }: ChapterLityType) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [chpaters, setShapters] = useState(items);
+  const [chapters, setShapters] = useState(items);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setShapters(items);
+  }, [items]);
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+
+    const items = Array.from(chapters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setShapters(items);
+
+    const updateChapters = items.map((chapter, index) => ({
+      id: chapter.id,
+      position: index,
+    }));
+    onRecord(updateChapters);
+  };
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
-    <DragDropContext onDragEnd={() => {}}>
-      <Droppable droppableId="chpaters">
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="chapters">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {chpaters.map((chapter, index) => (
+            {chapters.map((chapter, index) => (
               <Draggable
                 key={chapter.id}
                 draggableId={chapter.id}

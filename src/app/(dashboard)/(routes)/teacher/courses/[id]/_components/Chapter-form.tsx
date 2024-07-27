@@ -17,11 +17,12 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { LucidePen } from "lucide-react";
+import { Loader2, LucidePen } from "lucide-react";
 import { useState } from "react";
 import { Chapter, Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { ChapterList } from "./Chapter-List";
+import { cn } from "@/lib/utils";
 
 type ChapterForm = {
   initialData: Course & { chapter: Chapter[] };
@@ -34,6 +35,8 @@ const formSchema = z.object({
 
 const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
   const [openEditTitle, setOpenEditTitle] = useState(false);
+  const [isupdating, setIsUpdating] = useState(false);
+
   const ToogleEditTitle = () => {
     setOpenEditTitle(!openEditTitle);
   };
@@ -56,8 +59,31 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
       toast.error("Something went wrong!");
     }
   };
+
+  const onReorder = async (updateData: { id: string; position: number }[]) => {
+    try {
+      setIsUpdating(true);
+      await axios.put(`/api/courses/${courseId}/chapter/reOrder`, {
+        list: updateData,
+      });
+      toast.success("Reorder Success");
+      router.refresh();
+    } catch (error) {
+      console.error("Client-side error:", error);
+      toast.error("Something went wrong in Reorder Items!");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   return (
-    <div className="mt-6 bg-slate-100  p-4 mb-7 rounded-md w-full">
+    <div className={"mt-6 bg-slate-100 relative p-4 mb-7 rounded-md w-full"}>
+      {!isupdating && (
+        <div className="absolute w-full h-full left-0 top-0 flex items-center justify-center bg-slate-500/20 rounded-md ">
+          <Loader2 className="animate-spin h-7 w-7 text-sky-500  " />
+        </div>
+      )}
+
       <div className="flex justify-between mb-2 items-center">
         <h2 className="">Course Chpaters</h2>
         <div
@@ -86,7 +112,7 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
         <ChapterList
           onEdit={() => {}}
           items={initialData.chapter || []}
-          onRecord={() => {}}
+          onRecord={onReorder}
         />
       )}
 
