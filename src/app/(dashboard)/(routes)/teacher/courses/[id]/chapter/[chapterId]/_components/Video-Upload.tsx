@@ -4,12 +4,12 @@ import axios from "axios";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ImageIcon, LucidePen, PlusCircle, Video } from "lucide-react";
+import { LucidePen, PlusCircle, Video } from "lucide-react";
 import { useState } from "react";
 import { Chapter, MuxData } from "@prisma/client";
-import Image from "next/image";
 import FileUpload from "@/components/File-upload";
-import { Input } from "@/components/ui/input";
+
+import MuxPlayer from "@mux/mux-player-react";
 
 type PropsFormType = {
   initialData: Chapter & { muxData?: MuxData | null };
@@ -83,7 +83,7 @@ const VideoUploadForm = ({
       )}
       {initialData.videoUrl && !openEditTitle && (
         <div className="flex items-center justify-center bg-slate-200 p-3 aspect-video relative mt-5">
-          video
+          <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
         </div>
       )}
       {initialData.videoUrl && !openEditTitle && (

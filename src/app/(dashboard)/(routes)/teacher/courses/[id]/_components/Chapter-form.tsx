@@ -77,12 +77,6 @@ const ChapterForm = ({ initialData, courseId }: ChapterForm) => {
   };
   const onEdit = (id: string) => {
     router.push(`/teacher/courses/${courseId}/chapter/${id}`);
-    // try {
-    //   await axios.put(`/api/courses/${courseId}/chapter/${id}`);
-    // } catch (error) {
-    //   console.error("Client-side error:", error);
-    //   toast.error("Something went wrong in Reorder Items!");
-    // }
   };
 
   return (

@@ -45,7 +45,7 @@ const page = async ({ params }: ChapterType) => {
   const uncopltetdFileds = `(${completedFileds} / ${totalFileds})`;
 
   return (
-    <div className="p-6  mb-20">
+    <div className="p-10  mb-20">
       <div className="w-full">
         <Link
           className="flex gap-x-2  mb-7 items-center"
