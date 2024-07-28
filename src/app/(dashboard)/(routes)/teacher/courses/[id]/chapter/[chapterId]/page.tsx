@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import axios from "axios";
-import { ArrowLeft, EyeIcon, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, EyeIcon, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import TitleformChapter from "./_components/Title-form-chapter";
 import DescriptionformChapter from "./_components/Description-form-chapter copy";
 import AccessformChapter from "./_components/Access-form-chapter";
+import VideoUploadForm from "./_components/Video-Upload";
 
 type ChapterType = { params: { id: string; chapterId: string } };
 
@@ -84,6 +85,19 @@ const page = async ({ params }: ChapterType) => {
                 <h2 className="text-xl"> Access Settings</h2>
               </div>
               <AccessformChapter
+                initialData={Chapter}
+                chapterId={params.chapterId}
+                courseId={params.id}
+              />
+            </div>
+            <div className="max-lg:w-full w-1/2">
+              <div className="flex gap-2 mt-7  items-center">
+                <div className="w-11 h-10 bg-sky-200 flex justify-center items-center  rounded-full">
+                  <Video className=" text-sky-700 " />
+                </div>
+                <h2 className="text-xl"> Upload Video</h2>
+              </div>
+              <VideoUploadForm
                 initialData={Chapter}
                 chapterId={params.chapterId}
                 courseId={params.id}

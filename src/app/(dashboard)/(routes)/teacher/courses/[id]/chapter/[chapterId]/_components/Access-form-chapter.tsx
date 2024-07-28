@@ -98,14 +98,14 @@ const AccessformChapter = ({
       {openEditTitle && (
         <div className="mt-4">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+            <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-3">
               <FormField
                 control={form.control}
                 name="ifFree"
                 render={({ field }) => (
                   <FormItem className="flex items-center space-x-2">
                     <FormControl>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex mb-4 items-center space-x-2">
                         <Checkbox
                           id="terms"
                           checked={field.value}
@@ -113,7 +113,7 @@ const AccessformChapter = ({
                         />
                         <label
                           htmlFor="terms"
-                          className="text-slate-500 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          className=" text-slate-500 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
                           Make It Free
                         </label>
