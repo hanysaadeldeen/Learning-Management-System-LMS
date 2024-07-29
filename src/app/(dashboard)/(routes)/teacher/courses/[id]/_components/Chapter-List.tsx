@@ -86,8 +86,12 @@ export const ChapterList = ({ onEdit, items, onRecord }: ChapterLityType) => {
                     <div
                       className={cn("ml-auto pr-2 flex items-center gap-x-2")}
                     >
-                      {chapter.ifFree && <Badge>Free</Badge>}
-                      {!chapter.ifFree && <Badge>Not Free</Badge>}
+                      {chapter.ifFree ? (
+                        <Badge>Free</Badge>
+                      ) : (
+                        <Badge>Not Free</Badge>
+                      )}
+
                       <Badge
                         className={cn(
                           "bg-slate-500 ",
