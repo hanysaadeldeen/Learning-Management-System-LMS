@@ -50,26 +50,21 @@ const ChapterAction = ({
   const UpdatePuplishChapter = async () => {
     try {
       setIsPublish(true);
-      await axios.put(`/api/courses/${courseId}/chapter/${chapterId}/publish`);
+      if (!isPublished) {
+        await axios.patch(
+          `/api/courses/${courseId}/chapter/${chapterId}/publish`
+        );
+        toast.success("Chatper publish  Seccess");
+      } else {
+        await axios.patch(
+          `/api/courses/${courseId}/chapter/${chapterId}/Unpublish`
+        );
+        toast.success("Chatper UnPublish  Seccess");
+      }
       router.refresh();
-      toast.success("Update Chatper Status Seccess");
     } catch (error) {
       console.log(error);
 
-      toast.error("SomeThings went wrong in Publish!");
-    } finally {
-      setIsPublish(false);
-    }
-  };
-  const UpdateUpPuplishChapter = async () => {
-    try {
-      setIsPublish(true);
-      await axios.patch(
-        `/api/courses/${courseId}/chapter/${chapterId}/Unpublish`
-      );
-      router.refresh();
-      toast.success("Update Chatper Status Seccess");
-    } catch (error) {
       toast.error("SomeThings went wrong in Publish!");
     } finally {
       setIsPublish(false);
@@ -83,7 +78,6 @@ const ChapterAction = ({
         size={"lg"}
         variant={"outline"}
         onClick={UpdatePuplishChapter}
-        // onClick={!isPublished ? UpdatePuplishChapter : UpdateUpPuplishChapter}
       >
         {isPublished ? "UpPublish" : "Publish"}
       </Button>

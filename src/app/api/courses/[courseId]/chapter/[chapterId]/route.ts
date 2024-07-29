@@ -60,6 +60,23 @@ export async function DELETE(
       },
     });
 
+    // check if it is the last chapter then make change the pupblich status to private =>false
+    const pupblishChapterinCourse = await db.chapter.findMany({
+      where: {
+        courseId: params.courseId,
+        isPublished: true,
+      },
+    });
+    if (!pupblishChapterinCourse) {
+      await db.course.update({
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
     return NextResponse.json(DeleteChapter);
   } catch (error) {
     return new NextResponse("someThing went wrong!", { status: 500 });

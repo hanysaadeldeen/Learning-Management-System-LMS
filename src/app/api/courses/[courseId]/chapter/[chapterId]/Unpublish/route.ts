@@ -51,7 +51,7 @@ export async function PATCH(
         courseId: params.courseId,
       },
       data: {
-        isPublished: true,
+        isPublished: false,
       },
     });
     return NextResponse.json(updatedChapter);
