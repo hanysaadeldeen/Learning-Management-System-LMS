@@ -7,7 +7,64 @@ import Mux from "@mux/mux-node";
 export async function DELETE(
   req: Request,
   { params }: { params: { courseId: string; chapterId: string } }
-) {}
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    const CourseOwner = await db.course.findUnique({
+      where: {
+        id: params.courseId,
+        userId,
+      },
+    });
+
+    if (!CourseOwner) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    // we should get chapter before we delete it
+    const chapter = await db.chapter.findUnique({
+      where: {
+        courseId: params.courseId,
+        id: params.chapterId,
+      },
+    });
+    if (!chapter) {
+      return new NextResponse("Chapter Not Found", { status: 404 });
+    }
+
+    // delete video from mux website
+    if (chapter.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          chapterId: params.chapterId,
+        },
+      });
+      if (existingMuxData) {
+        await video.assets.delete(existingMuxData.assetsId);
+        await db.muxData.delete({
+          where: {
+            id: existingMuxData.id,
+          },
+        });
+      }
+    }
+
+    // delete chapter
+    const DeleteChapter = await db.chapter.delete({
+      where: {
+        courseId: params.courseId,
+        id: params.chapterId,
+      },
+    });
+
+    return NextResponse.json(DeleteChapter);
+  } catch (error) {
+    return new NextResponse("someThing went wrong!", { status: 500 });
+  }
+}
 
 const muxClient = new Mux({
   tokenId: process.env.MUX_TOKEN_ID!,

@@ -23,6 +23,7 @@ const ChapterAction = ({
 }: ActineType) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isPupblish, setIsPublish] = useState(false);
   const router = useRouter();
   useEffect(() => {
     setIsMounted(true);
@@ -34,25 +35,55 @@ const ChapterAction = ({
 
   const DeleteChpater = async () => {
     try {
-      await axios.delete(`/api/courses/${courseId}/chapter/${chapterId}`);
       setIsDeleting(true);
+      await axios.delete(`/api/courses/${courseId}/chapter/${chapterId}`);
       toast.success("Deleted Success");
-      router.push("/teacher/courses");
+      router.refresh();
+      router.push(`/teacher/courses/${courseId}`);
     } catch (error) {
-      console.log(error);
-      return new NextResponse("there is An Error");
+      toast.error("Something went wrong!");
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  const UpdatePuplishChapter = async () => {
+    try {
+      setIsPublish(true);
+      await axios.put(`/api/courses/${courseId}/chapter/${chapterId}/publish`);
+      router.refresh();
+      toast.success("Update Chatper Status Seccess");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("SomeThings went wrong in Publish!");
+    } finally {
+      setIsPublish(false);
+    }
+  };
+  const UpdateUpPuplishChapter = async () => {
+    try {
+      setIsPublish(true);
+      await axios.patch(
+        `/api/courses/${courseId}/chapter/${chapterId}/Unpublish`
+      );
+      router.refresh();
+      toast.success("Update Chatper Status Seccess");
+    } catch (error) {
+      toast.error("SomeThings went wrong in Publish!");
+    } finally {
+      setIsPublish(false);
     }
   };
 
   return (
     <div className="flex items-center gap-x-2">
       <Button
-        disabled={disabled}
+        disabled={disabled || isDeleting}
         size={"lg"}
         variant={"outline"}
-        onClick={() => {}}
+        onClick={UpdatePuplishChapter}
+        // onClick={!isPublished ? UpdatePuplishChapter : UpdateUpPuplishChapter}
       >
         {isPublished ? "UpPublish" : "Publish"}
       </Button>
