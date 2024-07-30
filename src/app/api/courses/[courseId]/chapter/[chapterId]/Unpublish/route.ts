@@ -23,28 +23,6 @@ export async function PATCH(
       return new NextResponse("Unathorized", { status: 401 });
     }
 
-    const chapter = await db.chapter.findUnique({
-      where: {
-        id: params.chapterId,
-        courseId: params.courseId,
-      },
-    });
-
-    const muxData = await db.muxData.findUnique({
-      where: {
-        chapterId: params.chapterId,
-      },
-    });
-
-    if (
-      !muxData ||
-      !chapter ||
-      !chapter.chapterTitle ||
-      !chapter.description ||
-      !chapter.videoUrl
-    ) {
-      return new NextResponse("Missing Reqired fields", { status: 400 });
-    }
     const updatedChapter = await db.chapter.update({
       where: {
         id: params.chapterId,
@@ -54,8 +32,30 @@ export async function PATCH(
         isPublished: false,
       },
     });
+
+    // check if there is the only chapter in this course so when we make it unPublish we
+    // should make all course private
+    const checkLastSectionPublish = await db.chapter.findMany({
+      where: {
+        courseId: params.courseId,
+        isPublished: true,
+      },
+    });
+
+    if (!checkLastSectionPublish) {
+      await db.course.update({
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
     return NextResponse.json(updatedChapter);
   } catch (error) {
-    return new NextResponse("someThing went wrong!", { status: 500 });
+    return new NextResponse("someThing went wrong in Unpublish!", {
+      status: 500,
+    });
   }
 }

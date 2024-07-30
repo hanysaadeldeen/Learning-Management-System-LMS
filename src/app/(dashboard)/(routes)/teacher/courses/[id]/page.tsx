@@ -7,6 +7,7 @@ import {
   File,
   LayoutDashboard,
   ListCheck,
+  TriangleAlert,
 } from "lucide-react";
 import Titleform from "./_components/Title-form";
 import DescriptionForm from "./_components/Description-form";
@@ -15,6 +16,7 @@ import CateogryForm from "./_components/Category-form";
 import PriceFrom from "./_components/Price-form";
 import AttachmentForm from "./_components/Attachment-form";
 import ChapterForm from "./_components/Chapter-form";
+import CourseAction from "./chapter/[chapterId]/_components/CourseAction";
 
 const CourseIdPage = async ({
   params,
@@ -67,58 +69,74 @@ const CourseIdPage = async ({
   const totalFileds = requiredFields.length;
   const completedFileds = requiredFields.filter(Boolean).length;
   const uncopltetdFileds = `(${completedFileds} / ${totalFileds})`;
+  const isComplete = requiredFields.every(Boolean);
 
   return (
-    <section className="p-10  ">
-      <h1 className="text-2xl font-semibold  mb-2 "> Course Setup</h1>
-      <p className="mb-16 tracking-wide">
-        Complete All Fields {uncopltetdFileds}
-      </p>
-      <div className="max-lg:flex-col gap-10 flex  w-full">
-        <div className="max-lg:w-full w-1/2">
-          <div className="flex gap-2 items-center">
-            <div className="w-11 h-10  bg-sky-200 flex justify-center items-center  rounded-full">
-              <LayoutDashboard className=" text-sky-700 " />
-            </div>
-            <h2 className="text-xl"> Customize Your Course</h2>
-          </div>
-          <Titleform initialData={course} courseId={course.id} />
-          <DescriptionForm initialData={course} courseId={course.id} />
-          <ImageUploadForm initialData={course} courseId={course.id} />
-          <CateogryForm
-            initialData={course}
-            courseId={course.id}
-            options={categories.map((category) => ({
-              value: category.id,
-              label: category.name,
-            }))}
+    <>
+      {!course.isPublished && (
+        <h1 className="bg-yellow-200 font-medium uppercase py-5 pl-10 flex gap-x-3 text-slate-500">
+          <TriangleAlert className="text-red-600" />
+          This Course is unpublished. it will not be visible to the students
+        </h1>
+      )}
+      <section className="p-10  ">
+        <h1 className="text-2xl font-semibold  mb-2 "> Course Setup</h1>
+        <div className=" mb-7  flex justify-between items-center w-full ">
+          <p className="text-slate-600 ">
+            Complete all fields {uncopltetdFileds}
+          </p>
+          <CourseAction
+            disabled={!isComplete}
+            courseId={params.id}
+            isPublished={course.isPublished}
           />
         </div>
-        <div className="max-lg:w-full w-1/2">
-          <div className="flex gap-2 mb-6 items-center">
-            <div className="w-10 h-10  bg-sky-200 flex justify-center items-center  rounded-full">
-              <ListCheck className=" text-sky-700  ml-1" />
+        <div className="max-lg:flex-col gap-10 flex  w-full">
+          <div className="max-lg:w-full w-1/2">
+            <div className="flex gap-2 items-center">
+              <div className="w-11 h-10  bg-sky-200 flex justify-center items-center  rounded-full">
+                <LayoutDashboard className=" text-sky-700 " />
+              </div>
+              <h2 className="text-xl"> Customize Your Course</h2>
             </div>
-            <h2 className="text-xl">Course Chapter</h2>
+            <Titleform initialData={course} courseId={course.id} />
+            <DescriptionForm initialData={course} courseId={course.id} />
+            <ImageUploadForm initialData={course} courseId={course.id} />
+            <CateogryForm
+              initialData={course}
+              courseId={course.id}
+              options={categories.map((category) => ({
+                value: category.id,
+                label: category.name,
+              }))}
+            />
           </div>
-          <ChapterForm initialData={course} courseId={course.id} />
-          <div className="flex gap-2 items-center">
-            <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
-              <CircleDollarSign className="text-sky-700 w-5 h-5" />
+          <div className="max-lg:w-full w-1/2">
+            <div className="flex gap-2 mb-6 items-center">
+              <div className="w-10 h-10  bg-sky-200 flex justify-center items-center  rounded-full">
+                <ListCheck className=" text-sky-700  ml-1" />
+              </div>
+              <h2 className="text-xl">Course Chapter</h2>
             </div>
-            <h4 className="text-xl">Set Your Price</h4>
-          </div>
-          <PriceFrom initialData={course} courseId={course.id} />
-          <div className="flex gap-2 mt-7  items-center">
-            <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
-              <File className="text-sky-700 w-5 h-5" />
+            <ChapterForm initialData={course} courseId={course.id} />
+            <div className="flex gap-2 items-center">
+              <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
+                <CircleDollarSign className="text-sky-700 w-5 h-5" />
+              </div>
+              <h4 className="text-xl">Set Your Price</h4>
             </div>
-            <h4 className="text-xl">Resources & Attachment</h4>
+            <PriceFrom initialData={course} courseId={course.id} />
+            <div className="flex gap-2 mt-7  items-center">
+              <div className=" bg-sky-200 flex justify-center items-center w-fit p-2 rounded-full">
+                <File className="text-sky-700 w-5 h-5" />
+              </div>
+              <h4 className="text-xl">Resources & Attachment</h4>
+            </div>
+            <AttachmentForm initialData={course} courseId={course.id} />
           </div>
-          <AttachmentForm initialData={course} courseId={course.id} />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

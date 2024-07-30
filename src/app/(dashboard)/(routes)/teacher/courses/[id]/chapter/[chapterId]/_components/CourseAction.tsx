@@ -7,19 +7,16 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-type ActineType = {
+type CourseActionType = {
   disabled: boolean;
   courseId: string;
-  chapterId: string;
   isPublished: boolean;
 };
-
-const ChapterAction = ({
+const CourseAction = ({
   disabled,
   courseId,
-  chapterId,
   isPublished,
-}: ActineType) => {
+}: CourseActionType) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPupblish, setIsPublish] = useState(false);
@@ -32,37 +29,37 @@ const ChapterAction = ({
     return null;
   }
 
-  const DeleteChpater = async () => {
+  const DeleteCourse = async () => {
     try {
       setIsDeleting(true);
-      await axios.delete(`/api/courses/${courseId}/chapter/${chapterId}`);
-      toast.success("Deleted Success");
+      await axios.delete(`/api/courses/${courseId}`);
       router.refresh();
-      router.push(`/teacher/courses/${courseId}`);
+      toast.success("Deleted Course ");
+      router.push(`/teacher/courses`);
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong in Delete Course!");
     } finally {
       setIsDeleting(false);
     }
   };
-
-  const UpdatePuplishChapter = async () => {
+  const UpdatePuplishCourse = async () => {
     try {
       setIsPublish(true);
+
       if (!isPublished) {
-        await axios.patch(
-          `/api/courses/${courseId}/chapter/${chapterId}/publish`
-        );
-        toast.success("Chatper publish  Seccess");
+        await axios.patch(`/api/courses/${courseId}/Tooglepublish`, {
+          isPublished: true,
+        });
+        toast.success("Course publish  Seccess");
       } else {
-        await axios.patch(
-          `/api/courses/${courseId}/chapter/${chapterId}/Unpublish`
-        );
-        toast.success("Chatper UnPublish  Seccess");
+        await axios.patch(`/api/courses/${courseId}/Tooglepublish`, {
+          isPublished: false,
+        });
+        toast.success("Course Unpublish  Seccess");
       }
       router.refresh();
     } catch (error) {
-      toast.error("SomeThings went wrong in Publish!");
+      toast.error("someThing went wrong!");
     } finally {
       setIsPublish(false);
     }
@@ -74,17 +71,17 @@ const ChapterAction = ({
         disabled={disabled || isDeleting || isPupblish}
         size={"lg"}
         variant={"outline"}
-        onClick={UpdatePuplishChapter}
+        onClick={UpdatePuplishCourse}
       >
         {isPublished ? "UpPublish" : "Publish"}
       </Button>
-      <ConfirmModal onConfirm={DeleteChpater}>
-        <Button disabled={isDeleting || isPupblish}>
+      <Button disabled={isDeleting || isPupblish}>
+        <ConfirmModal onConfirm={DeleteCourse}>
           <Trash />
-        </Button>
-      </ConfirmModal>
+        </ConfirmModal>
+      </Button>
     </div>
   );
 };
 
-export default ChapterAction;
+export default CourseAction;

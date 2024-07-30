@@ -66,8 +66,8 @@ const page = async ({ params }: ChapterType) => {
           </Link>
           <div className="w-full">
             <h2 className="text-2xl mb-3 font-medium">Chapter Creation</h2>
-            <div className="flex justify-between items-center w-full ">
-              <p className="text-slate-600  mb-7 ">
+            <div className="flex mb-7 justify-between items-center w-full ">
+              <p className="text-slate-600   ">
                 Complete all fields {uncopltetdFileds}
               </p>
               <ChapterAction
