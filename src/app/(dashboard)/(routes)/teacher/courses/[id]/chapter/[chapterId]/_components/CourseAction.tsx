@@ -1,6 +1,8 @@
 "use client";
 import ConfirmModal from "@/components/modals/Alert-dialog";
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
 import { Button } from "@/components/ui/button";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,6 +22,9 @@ const CourseAction = ({
   const [isMounted, setIsMounted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPupblish, setIsPublish] = useState(false);
+
+  const confetti = useConfettiStore();
+
   const router = useRouter();
   useEffect(() => {
     setIsMounted(true);
@@ -51,6 +56,7 @@ const CourseAction = ({
           isPublished: true,
         });
         toast.success("Course publish  Seccess");
+        confetti.opOpn();
       } else {
         await axios.patch(`/api/courses/${courseId}/Tooglepublish`, {
           isPublished: false,

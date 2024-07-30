@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./_components/(navbar)/Navbar";
 import Sidebare from "./_components/(sidebar)/Sidebare";
 import { Toaster } from "react-hot-toast";
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
 type ChildrenTypeAuthLayout = {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const DashboardLayout = ({ children }: ChildrenTypeAuthLayout) => {
       </div>
       <main className="md:pl-56 pt-[80px] pb-10">{children}</main>
       <Toaster position="top-right" reverseOrder={false} />
+      <ConfettiProvider />
     </>
   );
 };
