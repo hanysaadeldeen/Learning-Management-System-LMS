@@ -28,7 +28,23 @@ export async function PATCH(
         id: params.courseId,
         userId,
       },
+      include: {
+        chapter: {
+          include: {
+            muxData: true,
+          },
+        },
+      },
     });
+
+    const hasPublishedChapter = course?.chapter.some(
+      (shapter) => shapter.isPublished
+    );
+    if (value.isPublished) {
+      if (!hasPublishedChapter) {
+        return new NextResponse("Missing reqired fields", { status: 400 });
+      }
+    }
 
     if (!course || !course.title || !course.description || !course.imgUrl) {
       return new NextResponse("Missing reqired fields", { status: 400 });

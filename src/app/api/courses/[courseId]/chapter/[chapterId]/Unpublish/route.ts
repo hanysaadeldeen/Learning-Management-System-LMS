@@ -42,7 +42,7 @@ export async function PATCH(
       },
     });
 
-    if (!checkLastSectionPublish) {
+    if (!checkLastSectionPublish.length) {
       await db.course.update({
         where: {
           id: params.courseId,
