@@ -98,7 +98,6 @@ const CateogryForm = ({ initialData, courseId, options }: PropsFormType) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {/* <Combobox options={options} {...field} /> */}
                       <select
                         {...field}
                         disabled={isSubmitting}
@@ -120,11 +119,7 @@ const CateogryForm = ({ initialData, courseId, options }: PropsFormType) => {
                   </FormItem>
                 )}
               />
-              <Link href={"/"}>
-                <Button className="mr-5" variant="ghost">
-                  cancel
-                </Button>
-              </Link>
+
               <Button type="submit" disabled={isSubmitting || !isValid}>
                 Submit
               </Button>
