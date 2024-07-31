@@ -10,8 +10,9 @@ const NavbarRoutes = () => {
   const router = useRouter();
   const isTeacherPage = pathname?.startsWith("/teacher");
   const isPlayerPage = pathname?.includes("/chapter");
+
   return (
-    <div className="flex gap-x-1 ml-auto">
+    <div className="flex gap-x-1 justify-between items-center">
       <div>
         {isTeacherPage || isPlayerPage ? (
           <Link href={"/"}>
