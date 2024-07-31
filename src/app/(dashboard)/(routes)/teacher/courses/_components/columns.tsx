@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -49,11 +48,7 @@ export const columns: ColumnDef<Course>[] = [
         style: "currency",
         currency: "USD",
       }).format(price);
-      return (
-        <Badge className="bg-sky-500 font-bold hover:bg-sky-400">
-          {formatted}
-        </Badge>
-      );
+      return <div className="font-bold tracking-wide">{formatted}</div>;
     },
   },
   {

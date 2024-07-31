@@ -1,6 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import { FaRegTimesCircle } from "react-icons/fa";
@@ -71,11 +69,12 @@ const ImageUploadForm = ({ initialData, courseId }: PropsFormType) => {
           )}
         </div>
       </div>
-      {!openEditTitle && !initialData.imgUrl ? (
+      {!openEditTitle && !initialData.imgUrl && (
         <div className="flex mt-5 items-center justify-center h-40 bg-slate-200 rounded-md">
           <ImageIcon className="h-10 w-10 text-slate-500" />
         </div>
-      ) : (
+      )}
+      {!openEditTitle && initialData.imgUrl && (
         <div className="flex items-center justify-center bg-slate-200 p-3 aspect-video relative mt-5">
           <Image
             src={initialData.imgUrl || "/placeholder-image.png"}
