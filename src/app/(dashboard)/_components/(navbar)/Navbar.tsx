@@ -15,7 +15,7 @@ const Navbar = () => {
       py-[10px] px-[30px] w-full shadow-md z-20 "
     >
       <MobileSideBar />
-      {SearchCheck && <SearchInput />}
+      <div className="max-md:hidden">{SearchCheck && <SearchInput />}</div>
 
       <div className="flex gap-3  items-center">
         <NavbarRoutes />
