@@ -1,18 +1,36 @@
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
 
 export const GetProgress = async (
   userId: string,
   courseId: string
 ): Promise<number> => {
   try {
-    const response = await db.userProgress.findUnique({
+    const publishedChapters = await db.chapter.findMany({
       where: {
-        userId,
-        id: courseId,
+        courseId,
+        isPublished: true,
+      },
+      select: {
+        id: true,
       },
     });
+
+    const publishedChaptersIds = publishedChapters.map((chapter) => chapter.id);
+
+    const ValiedCmpletedChapter = await db.userProgress.count({
+      where: {
+        userId,
+        chapterId: {
+          in: publishedChaptersIds,
+        },
+        isCompleted: true,
+      },
+    });
+
+    const progressPercentage =
+      (ValiedCmpletedChapter / publishedChaptersIds.length) * 100;
+    return progressPercentage;
   } catch (error: any) {
-    return new NextResponse(error, { status: 500 });
+    return 0;
   }
 };
