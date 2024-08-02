@@ -13,14 +13,15 @@ interface CourseListProps {
 }
 
 const CoursesList = ({ data }: CourseListProps) => {
+  console.log(data);
+
   return (
     <div>
-      <h1 className="px-2  my-4 text-xl font-bold text-slate-600 tracking-wide">
+      {/* <h1 className="px-2  my-4 text-xl font-bold text-slate-600 tracking-wide">
         All Courses
-      </h1>
+      </h1> */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 2xl:grid-cols-4  gap-4 grid-cols-1">
         {data.map((item) => {
-          console.log(item.chapter);
           return (
             <CourseCard
               key={item.id}

@@ -31,8 +31,10 @@ const SearchPage = async ({ searchParams }: SearchParamsType) => {
       <div className="w-full md:hidden my-3">
         <SearchInput />
       </div>
-      <Categories items={AllCategories} />
-      <CoursesList data={AllCourses} />
+      <div className="space-y-2">
+        <Categories items={AllCategories} />
+        <CoursesList data={AllCourses} />
+      </div>
     </div>
   );
 };
