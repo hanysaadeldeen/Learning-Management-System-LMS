@@ -60,7 +60,7 @@ export default async function CourseLayout({
       <div className="hidden md:block w-72 h-full fixed z-50">
         <CourseSidebar course={course} ProgressCount={ProgressCount} />
       </div>
-      <main className="md:pl-72 md: h-full">{children}</main>
+      <main className="md:pl-72 md:pt-[80px] h-full">{children}</main>
     </div>
   );
 }

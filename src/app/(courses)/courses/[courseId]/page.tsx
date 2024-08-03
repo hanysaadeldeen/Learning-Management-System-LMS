@@ -1,12 +1,29 @@
-import React from "react";
+import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
 
-const SpecificCourse = ({ params }: { params: { courseId: string } }) => {
-  const courseId = params.courseId;
-  return (
-    <div>
-      <h1>hello there </h1>
-      <p>{courseId}</p>
-    </div>
+const SpecificCourse = async ({ params }: { params: { courseId: string } }) => {
+  const coursefirstChapter = await db.course.findUnique({
+    where: {
+      id: params.courseId,
+    },
+    include: {
+      chapter: {
+        where: {
+          isPublished: true,
+        },
+        orderBy: {
+          position: "asc",
+        },
+      },
+    },
+  });
+
+  if (!coursefirstChapter) {
+    return redirect("/");
+  }
+
+  return redirect(
+    `/courses/${params.courseId}/chapter/${coursefirstChapter.chapter[0].id}`
   );
 };
 

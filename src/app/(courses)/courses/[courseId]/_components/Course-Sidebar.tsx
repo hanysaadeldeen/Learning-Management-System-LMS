@@ -37,10 +37,12 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
           </div>
         </Link>
       </>
-      <div className="p-6 border-b mb-5">
-        <h1 className="text-center font-bold text-lg  text-slate-700 capitalize">
-          {course.title}
-        </h1>
+      <div className="p-6 border-b ">
+        <Link href={`/courses/${course.id}`}>
+          <h1 className="text-center font-bold text-lg  text-slate-700 capitalize">
+            {course.title}
+          </h1>
+        </Link>
       </div>
       <div className="w-full flex  flex-col">
         {course.chapter.map((chapter) => {

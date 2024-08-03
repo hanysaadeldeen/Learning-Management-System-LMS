@@ -45,7 +45,6 @@ export async function POST(
     });
     return NextResponse.json(CreateChpater);
   } catch (error) {
-    console.log("this error from chapter", error);
     return new NextResponse("internal Server Error in Chapter", {
       status: 500,
     });

@@ -13,8 +13,6 @@ interface CourseListProps {
 }
 
 const CoursesList = ({ data }: CourseListProps) => {
-  console.log(data);
-
   return (
     <div>
       {/* <h1 className="px-2  my-4 text-xl font-bold text-slate-600 tracking-wide">

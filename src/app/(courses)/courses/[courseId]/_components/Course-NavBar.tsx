@@ -14,9 +14,6 @@ type CourseSidebarType = {
 };
 
 const CourseNavBar = ({ course, ProgressCount }: CourseSidebarType) => {
-  console.log(course);
-  console.log(ProgressCount);
-
   return (
     <div
       className="flex items-center md:justify-end  justify-between

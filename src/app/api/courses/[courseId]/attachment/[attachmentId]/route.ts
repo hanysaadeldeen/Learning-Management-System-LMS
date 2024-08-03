@@ -31,7 +31,6 @@ export async function DELETE(
     });
     return NextResponse.json(AttachemntDelete);
   } catch (error) {
-    console.log("Delet Attachment Error");
     return new NextResponse("interal Error from Delete Attachment", {
       status: 500,
     });
