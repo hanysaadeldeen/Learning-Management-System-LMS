@@ -2,12 +2,9 @@ import { GetProgress } from "@/actions/User-Progres";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { redirect } from "next/navigation";
 import CourseSidebar from "./_components/Course-Sidebar";
-import Navbar from "@/app/(dashboard)/_components/(navbar)/Navbar";
 import CourseNavBar from "./_components/Course-NavBar";
-// import Navbar from "@/app/(dashboard)/_components/(navbar)/Navbar";
 
 export const metadata: Metadata = {
   title: "LMS",
@@ -54,6 +51,7 @@ export default async function CourseLayout({
   const ProgressCount = await GetProgress(userId, course.id);
   return (
     <div className="h-full ">
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <div className="navbar md:pl-72 h-[80px] w-full flex fixed inset-y-0 z-40 bg-white">
         <CourseNavBar course={course} ProgressCount={ProgressCount} />
       </div>
