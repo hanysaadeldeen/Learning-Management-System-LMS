@@ -13,14 +13,14 @@ const DashboardLayout = ({ children }: ChildrenTypeAuthLayout) => {
     <>
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <div className="">
-        <div className="navbar md:pl-56 h-[80px] w-full flex fixed inset-y-0 z-40 bg-white">
+        <div className="navbar md:pl-72 h-[80px] w-full flex fixed inset-y-0 z-40 bg-white">
           <Navbar />
         </div>
-        <div className="bg-white hidden md:flex flex-col fixed w-56 inset-y-0 z-50 h-full  border-r text-center">
+        <div className="bg-white hidden md:flex flex-col fixed w-72 inset-y-0 z-50 h-full  border-r text-center">
           <Sidebare />
         </div>
       </div>
-      <main className="md:pl-56 pt-[80px] pb-10">{children}</main>
+      <main className="md:pl-72 pt-[80px] pb-10">{children}</main>
       <Toaster position="top-right" reverseOrder={false} />
       <ConfettiProvider />
     </>

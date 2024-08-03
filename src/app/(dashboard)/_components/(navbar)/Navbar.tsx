@@ -1,6 +1,5 @@
 "use client";
 import NavbarRoutes from "@/components/Navbar-routes";
-import { UserButton } from "@clerk/nextjs";
 import MobileSideBar from "../(sidebar)/Mobile-Side-bar";
 import { usePathname } from "next/navigation";
 import SearchInput from "@/components/SearchInput";
@@ -16,10 +15,8 @@ const Navbar = () => {
     >
       <MobileSideBar />
       <div className="max-md:hidden">{SearchCheck && <SearchInput />}</div>
-
-      <div className="flex gap-3  items-center">
+      <div className="">
         <NavbarRoutes />
-        <UserButton />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
+"use client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { UserButton } from "@clerk/nextjs";
 import { Menu } from "lucide-react";
 import Sidebare from "./Sidebare";
 

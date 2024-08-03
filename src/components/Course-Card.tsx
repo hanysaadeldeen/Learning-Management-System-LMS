@@ -30,7 +30,7 @@ const CourseCard = ({
           <Image fill className="object-cover" alt={title} src={imgUrl} />
         </div>
         <div className="mt-4 px-1 flex-col  ">
-          <h2 className="capitalize group-hover:text-sky-700 max-md:text-base text-lg ">
+          <h2 className="capitalize group-hover:text-sky-700 max-md:text-base text-lg line-clamp-1">
             {title}
           </h2>
           <p className="text-sm text-muted-foreground">{category}</p>
