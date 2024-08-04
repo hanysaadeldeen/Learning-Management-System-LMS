@@ -1,10 +1,12 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Attachment, Chapter } from "@prisma/client";
-import { CheckCircle, TriangleAlert } from "lucide-react";
+import { CheckCircle, Download, File, TriangleAlert } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
 import VideoChapter from "./_components/videoChapter";
+import EnrollCourse from "./_components/EnrollCourse";
+import Description from "./_components/Description";
 
 const ChapterCourseID = async ({
   params,
@@ -40,6 +42,7 @@ const ChapterCourseID = async ({
     },
     select: {
       price: true,
+      attachment: true,
     },
   });
 
@@ -91,6 +94,8 @@ const ChapterCourseID = async ({
   const isLocked = !chapter.ifFree && !purchase;
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
 
+  console.log(!!attachment.length);
+
   return (
     <>
       {isLocked && (
@@ -117,6 +122,38 @@ const ChapterCourseID = async ({
             islocked={isLocked}
             completeOnEnd={completeOnEnd}
           />
+        </div>
+        <div className="flex pb-3 justify-between items-center">
+          <h2 className="text-2xl font-semibold text-slate-700  ">
+            {chapter.chapterTitle}
+          </h2>
+          <EnrollCourse courseId={params.courseId} price={course.price!} />
+        </div>
+        <hr />
+        <Description description={chapter.description!} />
+        <hr />
+        <div>
+          {!attachment.length && (
+            <div className="py-2 my-3 flex justify-center border gap-x-3 rounded-md px-6 items-center bg-sky-300 text-slate-600">
+              <File className="text-sky-700 w-5 h-5" />
+              <h1>Enroll the Course For See Attachment</h1>
+            </div>
+          )}
+          {!!attachment.length &&
+            attachment.map((attachment) => {
+              return (
+                <div
+                  key={attachment.id}
+                  className="py-2 my-3   flex justify-between border rounded-md px-6 items-center bg-sky-300 text-slate-600"
+                >
+                  <div className="flex gap-x-3 items-center  w-full">
+                    <File className="text-sky-700 w-5 h-5" />
+                    <h1>attachment.nam</h1>
+                  </div>
+                  <Download className="hover:text-sky-900 transition cursor-pointer text-slate-500 w-5 h-5" />
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

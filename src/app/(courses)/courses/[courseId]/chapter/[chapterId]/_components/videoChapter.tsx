@@ -23,7 +23,6 @@ const VideoChapter = ({
   islocked,
   completeOnEnd,
 }: VideoPlayerChapterType) => {
-  console.log(chapterId);
   const [isReady, setIsReady] = useState(false);
   return (
     <div className="relative aspect-video">
@@ -44,7 +43,7 @@ const VideoChapter = ({
           className={cn(!isReady && "hidden")}
           onCanPlay={() => setIsReady(true)}
           onEnded={() => {}}
-          autoPlay
+          // autoPlay
           playbackId={playBackId}
         />
       )}
