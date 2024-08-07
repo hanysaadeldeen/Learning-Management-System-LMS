@@ -94,8 +94,6 @@ const ChapterCourseID = async ({
   const isLocked = !chapter.ifFree && !purchase;
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
 
-  console.log(!!attachment.length);
-
   return (
     <>
       {isLocked && (

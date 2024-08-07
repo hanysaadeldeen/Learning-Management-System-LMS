@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import CourseSidebar from "./_components/Course-Sidebar";
 import CourseNavBar from "./_components/Course-NavBar";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "LMS",
@@ -59,6 +60,7 @@ export default async function CourseLayout({
         <CourseSidebar course={course} ProgressCount={ProgressCount} />
       </div>
       <main className="md:pl-72 md:pt-[80px] h-full">{children}</main>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }
