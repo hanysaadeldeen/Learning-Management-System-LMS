@@ -3,10 +3,12 @@ import { cn } from "@/lib/utils";
 import MuxPlayer from "@mux/mux-player-react";
 import { Loader2, Lock } from "lucide-react";
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
 type VideoPlayerChapterType = {
   chapterId: string;
   title: string;
+  vidUrl: string;
   courseId: string;
   nextChapterId?: string;
   playBackId: string;
@@ -16,6 +18,7 @@ type VideoPlayerChapterType = {
 
 const VideoChapter = ({
   chapterId,
+  vidUrl,
   title,
   courseId,
   nextChapterId,
@@ -38,13 +41,20 @@ const VideoChapter = ({
         </div>
       )}
       {!islocked && (
-        <MuxPlayer
-          title={title}
-          className={cn(!isReady && "hidden")}
-          onCanPlay={() => setIsReady(true)}
-          onEnded={() => {}}
-          // autoPlay
-          playbackId={playBackId}
+        // <MuxPlayer
+        //   title={title}
+        //   className={cn(!isReady && "hidden")}
+        //   onCanPlay={() => setIsReady(true)}
+        //   onEnded={() => {}}
+        //   // autoPlay
+        //   playbackId={playBackId}
+        // />
+        <ReactPlayer
+          url={vidUrl}
+          className="absolute top-0 left-0 w-full h-full"
+          controls
+          width="100%"
+          height="100%"
         />
       )}
     </div>

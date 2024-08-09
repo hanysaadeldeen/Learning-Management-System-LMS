@@ -112,6 +112,7 @@ const ChapterCourseID = async ({
       <div className="md:p-10 p-4">
         <div className="max-w-2xl mx-auto">
           <VideoChapter
+            vidUrl={chapter?.videoUrl!}
             chapterId={params.chapterId}
             title={chapter.chapterTitle}
             courseId={params.courseId}
@@ -125,7 +126,11 @@ const ChapterCourseID = async ({
           <h2 className="text-2xl font-semibold text-slate-700  ">
             {chapter.chapterTitle}
           </h2>
-          <EnrollCourse courseId={params.courseId} price={course.price!} />
+          <EnrollCourse
+            userId={userId}
+            courseId={params.courseId}
+            price={course.price!}
+          />
         </div>
         <hr />
         <Description description={chapter.description!} />
