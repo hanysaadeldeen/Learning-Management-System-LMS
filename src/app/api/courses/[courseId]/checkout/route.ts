@@ -95,8 +95,8 @@ export const POST = async (
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      line_items,
       mode: "payment",
+      line_items,
       customer: stripeCustomer.stripeCustomerId,
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,

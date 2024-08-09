@@ -11,6 +11,7 @@ import DescriptionformChapter from "./_components/Description-form-chapter copy"
 import AccessformChapter from "./_components/Access-form-chapter";
 import VideoUploadForm from "./_components/Video-Upload";
 import ChapterAction from "./_components/ChapterAction";
+import VideoUploadUrl from "./_components/VideoUploadUrl";
 
 type ChapterType = { params: { id: string; chapterId: string } };
 
@@ -114,9 +115,14 @@ const page = async ({ params }: ChapterType) => {
                   <div className="w-11 h-10 bg-sky-200 flex justify-center items-center  rounded-full">
                     <Video className=" text-sky-700 " />
                   </div>
-                  <h2 className="text-xl"> Upload Video</h2>
+                  <h2 className="text-xl"> Upload Video Url</h2>
                 </div>
-                <VideoUploadForm
+                {/* <VideoUploadForm
+                  initialData={Chapter}
+                  chapterId={params.chapterId}
+                  courseId={params.id}
+                /> */}
+                <VideoUploadUrl
                   initialData={Chapter}
                   chapterId={params.chapterId}
                   courseId={params.id}
