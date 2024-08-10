@@ -7,6 +7,7 @@ import React from "react";
 import VideoChapter from "./_components/videoChapter";
 import EnrollCourse from "./_components/EnrollCourse";
 import Description from "./_components/Description";
+import { Button } from "@/components/ui/button";
 
 const ChapterCourseID = async ({
   params,
@@ -122,15 +123,21 @@ const ChapterCourseID = async ({
             completeOnEnd={completeOnEnd}
           />
         </div>
-        <div className="flex pb-3 justify-between items-center">
+        <div className="mt-5 flex pb-3 justify-between items-center">
           <h2 className="text-2xl font-semibold text-slate-700  ">
             {chapter.chapterTitle}
           </h2>
-          <EnrollCourse
-            userId={userId}
-            courseId={params.courseId}
-            price={course.price!}
-          />
+          {purchase ? (
+            <Button
+              className="flex items-center gap-3"
+              // onClick={CompleteChapter}
+            >
+              <CheckCircle className="h-4 w-4" />
+              {!chapter.isCompleted ? `Mark as Completed` : "UnCompleted"}
+            </Button>
+          ) : (
+            <EnrollCourse courseId={params.courseId} price={course.price!} />
+          )}
         </div>
         <hr />
         <Description description={chapter.description!} />

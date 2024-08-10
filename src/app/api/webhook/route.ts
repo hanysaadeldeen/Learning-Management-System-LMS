@@ -1,8 +1,8 @@
-import Stripe from "stripe";
-import { headers } from "next/headers";
-import { stripe } from "@/lib/stripe";
-import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -16,15 +16,13 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (e) {
-    console.log("Error constructing webhook event:", e);
-    return new NextResponse("Error", {
+  } catch (e: any) {
+    return new NextResponse(`Error constructing webhook event:${e.message}`, {
       status: 400,
     });
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
-
   const userId = session?.metadata?.userId;
   const courseId = session?.metadata?.courseId;
 
@@ -34,18 +32,19 @@ export async function POST(req: Request) {
         status: 400,
       });
     }
-
     await db.purchase.create({
       data: {
-        courseId,
-        userId,
+        courseId: courseId,
+        userId: userId,
       },
     });
   } else {
-    console.log("Unhandled event type:", event.type);
-    return new NextResponse(`"Unhandled event type",${event.type}`, {
-      status: 200,
-    });
+    return new NextResponse(
+      `Webhook Error:Unhandled event type ${event.type}`,
+      {
+        status: 200,
+      }
+    );
   }
   return new NextResponse(null, { status: 200 });
 }

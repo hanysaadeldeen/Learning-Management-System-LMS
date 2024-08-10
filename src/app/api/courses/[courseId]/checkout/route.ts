@@ -16,32 +16,6 @@ export const POST = async (
       });
     }
 
-    // Verify the request body
-    const requestBody = await req.text();
-    if (!requestBody) {
-      return new NextResponse("Bad Request: Empty body", {
-        status: 400,
-      });
-    }
-
-    // Parse the request body
-    let parsedBody;
-    try {
-      parsedBody = JSON.parse(requestBody);
-    } catch (err) {
-      console.log("Error parsing JSON body:", err);
-      return new NextResponse("Bad Request: Invalid JSON", {
-        status: 400,
-      });
-    }
-
-    const { title } = parsedBody;
-    if (!title) {
-      return new NextResponse("Bad Request: Missing title", {
-        status: 400,
-      });
-    }
-
     // Find the course
     const course = await db.course.findUnique({
       where: {
@@ -56,6 +30,19 @@ export const POST = async (
       });
     }
 
+    const purchase = await db.purchase.findUnique({
+      where: {
+        userId_courseId: {
+          userId: user.id,
+          courseId: params.courseId,
+        },
+      },
+    });
+    if (purchase) {
+      return new NextResponse("Already purchased", {
+        status: 400,
+      });
+    }
     // Prepare line items for Stripe checkout session
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [
       {
@@ -66,13 +53,13 @@ export const POST = async (
             name: course.title,
             description: course.description!,
           },
-          unit_amount: Math.round(course.price! * 100),
+          unit_amount: Math.round(course.price!),
         },
       },
     ];
 
     // Find or create a Stripe customer
-    let stripeCustomer = await db.stripeCustomer.findFirst({
+    let stripeCustomer = await db.stripeCustomer.findUnique({
       where: {
         userId: user.id,
       },
@@ -95,9 +82,9 @@ export const POST = async (
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items,
       customer: stripeCustomer.stripeCustomerId,
+      line_items,
+      mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,
       metadata: {
@@ -108,7 +95,6 @@ export const POST = async (
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    console.log(err);
     return new NextResponse(`Happy Internal Error, ${err} `, {
       status: 500,
     });
