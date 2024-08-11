@@ -5,6 +5,8 @@ import React from "react";
 import CourseSidebarItems from "./Course-sidebar-Items";
 import Link from "next/link";
 import Logo from "@/app/(dashboard)/_components/(sidebar)/logo";
+import { redirect } from "next/navigation";
+import CourseProgress from "@/components/Course-Progress";
 
 type CourseSidebarType = {
   course: Course & {
@@ -16,14 +18,16 @@ type CourseSidebarType = {
 };
 const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
   const { userId } = auth();
-  // const purhase = await db.purchase.findUnique({
-  //   where: {
-  //     userId_courseId: {
-  //       userId,
-  //       courseId: course.id,
-  //     },
-  //   },
-  // });
+
+  if (!userId) redirect("/");
+  const purhase = await db.purchase.findUnique({
+    where: {
+      userId_courseId: {
+        userId,
+        courseId: course.id,
+      },
+    },
+  });
 
   return (
     <div className="border-r h-full overflow-y-auto overflow-x-hidden">
@@ -43,6 +47,7 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
             {course.title}
           </h1>
         </Link>
+        {purhase && <CourseProgress progress={ProgressCount} />}
       </div>
       <div className="w-full flex  flex-col">
         {course.chapter.map((chapter) => {

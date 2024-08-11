@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { IconBase } from "react-icons";
+import CourseProgress from "./Course-Progress";
 
 type CourseCardProps = {
   id: string;
@@ -41,10 +42,10 @@ const CourseCard = ({
               {chapterLength > 1 ? " Chapters" : " Chapter"}
             </p>
           </div>
-
           <h2 className=" mt-2 ml-0.5 text-slate-700 font-medium text-md">
             ${price}
           </h2>
+          <CourseProgress progress={progress!} />
         </div>
       </div>
     </Link>
