@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import CourseSidebar from "./_components/Course-Sidebar";
 import CourseNavBar from "./_components/Course-NavBar";
 import { Toaster } from "react-hot-toast";
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
 export const metadata: Metadata = {
   title: "LMS",
@@ -61,6 +62,7 @@ export default async function CourseLayout({
       </div>
       <main className="md:pl-72 md:pt-[80px] h-full">{children}</main>
       <Toaster position="top-right" reverseOrder={false} />
+      <ConfettiProvider />
     </div>
   );
 }

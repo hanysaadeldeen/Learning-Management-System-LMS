@@ -13,6 +13,7 @@ type CourseItemtype = {
   title: string;
   isComplete: boolean;
   purhase: Purchase;
+  ifComplete: boolean;
 };
 
 const CourseSidebarItems = ({
@@ -22,32 +23,28 @@ const CourseSidebarItems = ({
   title,
   isComplete,
   purhase,
+  ifComplete,
 }: CourseItemtype) => {
   const pathName = usePathname();
 
   const isActive = pathName?.includes(id);
 
-  /* 
+  // console.log(ifComplete);
 
-1=check if (the purchse is not null) => check if he complete the chapter or not 
-2=else (purchase is null)=> if chapter is free =>if he complete or not
-
-
-*/
   return (
     <Link href={`/courses/${courseId}/chapter/${id}`}>
       <div
         className={cn(
           "px-6  py-4 relative flex justify-between items-center w-full hover:bg-slate-200 transition text-slate-500 hover:text-slate-700 ",
           isActive && "bg-sky-200/60 text-slate-700 ",
-          isComplete && "text-emerald-700 ",
-          isComplete && isActive && "bg-emerald-200/50"
+          ifComplete && "text-emerald-700 ",
+          ifComplete && isActive && "bg-emerald-200/50"
         )}
       >
         <h2 className="text-xl capitalize  font-semibold">{title}</h2>
         <span>
           {purhase &&
-            (isComplete ? (
+            (ifComplete ? (
               <CheckCircle className="w-7 h-7    rounded-lg p-1" />
             ) : (
               <PlayCircle className="w-7 h-7    rounded-lg p-1" />
@@ -56,7 +53,7 @@ const CourseSidebarItems = ({
           {!purhase &&
             (isLocked ? (
               <Lock className="w-7 h-7  rounded-lg p-1" />
-            ) : isComplete ? (
+            ) : ifComplete ? (
               <CheckCircle className="w-7 h-7    rounded-lg p-1" />
             ) : (
               <PlayCircle className="w-7 h-7    rounded-lg p-1" />

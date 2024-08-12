@@ -9,7 +9,6 @@ import { TriangleAlert } from "lucide-react";
 import TitleformChapter from "./_components/Title-form-chapter";
 import DescriptionformChapter from "./_components/Description-form-chapter copy";
 import AccessformChapter from "./_components/Access-form-chapter";
-import VideoUploadForm from "./_components/Video-Upload";
 import ChapterAction from "./_components/ChapterAction";
 import VideoUploadUrl from "./_components/VideoUploadUrl";
 

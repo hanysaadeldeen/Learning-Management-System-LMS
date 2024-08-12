@@ -2,12 +2,15 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Attachment, Chapter } from "@prisma/client";
 import { CheckCircle, Download, File, TriangleAlert } from "lucide-react";
-import { redirect } from "next/navigation";
-import React from "react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useState } from "react";
 import VideoChapter from "./_components/videoChapter";
 import EnrollCourse from "./_components/EnrollCourse";
 import Description from "./_components/Description";
 import { Button } from "@/components/ui/button";
+import CourseProgress from "@/components/Course-Progress";
+import CourseProgressButton from "../../_components/Course-Progress";
+import ChapterAttachemnt from "./_components/Chapter";
 
 const ChapterCourseID = async ({
   params,
@@ -123,18 +126,17 @@ const ChapterCourseID = async ({
             completeOnEnd={completeOnEnd}
           />
         </div>
-        <div className="mt-5 flex pb-3 justify-between items-center">
+        <div className="mt-5 flex pb-3 justify-between max-sm:flex-col items-center">
           <h2 className="text-2xl font-semibold text-slate-700  ">
             {chapter.chapterTitle}
           </h2>
           {purchase ? (
-            <Button
-              className="flex items-center gap-3"
-              // onClick={CompleteChapter}
-            >
-              <CheckCircle className="h-4 w-4" />
-              {!chapter.isCompleted ? `Mark as Completed` : "UnCompleted"}
-            </Button>
+            <CourseProgressButton
+              nextChapterId={nextChapter?.id}
+              chapter={params.chapterId}
+              course={params.courseId}
+              check={chapter.isCompleted!}
+            />
           ) : (
             <EnrollCourse courseId={params.courseId} price={course.price!} />
           )}
@@ -159,16 +161,33 @@ const ChapterCourseID = async ({
           {purchase &&
             attachment.map((attachment) => {
               return (
-                <div
+                // <div
+                //   key={attachment.id}
+                //   className="py-2 my-3   flex justify-between border rounded-md px-6 items-center bg-sky-300 text-slate-600"
+                // >
+                //   <div className="flex gap-x-3 items-center  w-full">
+                //     <File className="text-sky-700 w-5 h-5" />
+                //     <h1>{attachment.name}</h1>
+                //   </div>
+                //   <a
+                //     href={attachment.url}
+                //     onClick={(e) => {
+                //       e.preventDefault();
+                //       const link = document.createElement("a");
+                //       link.href = attachment.url;
+                //       link.setAttribute("download", attachment.name);
+                //       document.body.appendChild(link);
+                //       link.click();
+                //       document.body.removeChild(link);
+                //     }}
+                //   >
+                //     <Download className="hover:text-sky-900 transition cursor-pointer text-slate-500 w-5 h-5" />
+                //   </a>
+                // </div>
+                <ChapterAttachemnt
+                  attachment={attachment}
                   key={attachment.id}
-                  className="py-2 my-3   flex justify-between border rounded-md px-6 items-center bg-sky-300 text-slate-600"
-                >
-                  <div className="flex gap-x-3 items-center  w-full">
-                    <File className="text-sky-700 w-5 h-5" />
-                    <h1>attachment.nam</h1>
-                  </div>
-                  <Download className="hover:text-sky-900 transition cursor-pointer text-slate-500 w-5 h-5" />
-                </div>
+                />
               );
             })}
         </div>
