@@ -29,6 +29,8 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
     },
   });
 
+  console.log(purhase);
+
   return (
     <div className="border-r h-full overflow-y-auto overflow-x-hidden">
       <>
@@ -47,6 +49,7 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
             {course.title}
           </h1>
         </Link>
+        <div className="w-full h-1 bg-gray-300 my-5"></div>
         {purhase && <CourseProgress progress={ProgressCount} />}
       </div>
       <div className="w-full flex  flex-col">
@@ -59,6 +62,7 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
               courseId={chapter.courseId}
               isLocked={!chapter.ifFree}
               isComplete={!!chapter.userProgress?.[0]?.isCompleted}
+              purhase={purhase!}
             />
           );
         })}

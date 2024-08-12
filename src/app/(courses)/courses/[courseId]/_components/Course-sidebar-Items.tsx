@@ -1,8 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { Purchase } from "@prisma/client";
 import { CheckCircle, Lock, PlayCircle } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 type CourseItemtype = {
@@ -11,6 +12,7 @@ type CourseItemtype = {
   courseId: string;
   title: string;
   isComplete: boolean;
+  purhase: Purchase;
 };
 
 const CourseSidebarItems = ({
@@ -19,12 +21,19 @@ const CourseSidebarItems = ({
   courseId,
   title,
   isComplete,
+  purhase,
 }: CourseItemtype) => {
   const pathName = usePathname();
-  const router = useRouter();
 
   const isActive = pathName?.includes(id);
 
+  /* 
+
+1=check if (the purchse is not null) => check if he complete the chapter or not 
+2=else (purchase is null)=> if chapter is free =>if he complete or not
+
+
+*/
   return (
     <Link href={`/courses/${courseId}/chapter/${id}`}>
       <div
@@ -37,13 +46,21 @@ const CourseSidebarItems = ({
       >
         <h2 className="text-xl capitalize  font-semibold">{title}</h2>
         <span>
-          {isLocked ? (
-            <Lock className="w-7 h-7  rounded-lg p-1" />
-          ) : isComplete ? (
-            <CheckCircle className="w-7 h-7    rounded-lg p-1" />
-          ) : (
-            <PlayCircle className="w-7 h-7    rounded-lg p-1" />
-          )}
+          {purhase &&
+            (isComplete ? (
+              <CheckCircle className="w-7 h-7    rounded-lg p-1" />
+            ) : (
+              <PlayCircle className="w-7 h-7    rounded-lg p-1" />
+            ))}
+
+          {!purhase &&
+            (isLocked ? (
+              <Lock className="w-7 h-7  rounded-lg p-1" />
+            ) : isComplete ? (
+              <CheckCircle className="w-7 h-7    rounded-lg p-1" />
+            ) : (
+              <PlayCircle className="w-7 h-7    rounded-lg p-1" />
+            ))}
         </span>
         <div
           className={cn(

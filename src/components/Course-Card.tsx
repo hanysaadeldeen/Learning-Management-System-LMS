@@ -35,17 +35,19 @@ const CourseCard = ({
             {title}
           </h2>
           <p className="text-sm text-muted-foreground">{category}</p>
-          <div className="flex gap-x-2 items-center mt-2 ">
+          <div className="flex gap-x-2 items-center mt-2 mb-3">
             <BookOpen className="w-6 h-6 text-slate-500 bg-sky-300  rounded-lg p-1" />
             <p className="text-slate-500">
               {chapterLength}
               {chapterLength > 1 ? " Chapters" : " Chapter"}
             </p>
           </div>
-          <h2 className=" mt-2 ml-0.5 text-slate-700 font-medium text-md">
-            ${price}
-          </h2>
-          <CourseProgress progress={progress!} />
+          <div className="flex  mt-2  items-center justify-between">
+            <h2 className="ml-0.5 text-slate-700 font-medium text-md">
+              ${price}
+            </h2>
+            <CourseProgress progress={progress!} />
+          </div>
         </div>
       </div>
     </Link>

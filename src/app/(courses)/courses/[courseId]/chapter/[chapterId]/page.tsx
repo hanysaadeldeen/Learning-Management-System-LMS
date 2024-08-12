@@ -143,13 +143,20 @@ const ChapterCourseID = async ({
         <Description description={chapter.description!} />
         <hr />
         <div>
-          {!attachment.length && (
+          {!purchase && (
             <div className="py-2 my-3 flex justify-center border gap-x-3 rounded-md px-6 items-center bg-sky-300 text-slate-600">
               <File className="text-sky-700 w-5 h-5" />
               <h1>Enroll the Course For See Attachment</h1>
             </div>
           )}
-          {!!attachment.length &&
+          {purchase && attachment.length === 0 && (
+            <div className="py-2 my-3 flex justify-center border gap-x-3 rounded-md px-6 items-center bg-emerald-200/50 text-emerald-900">
+              <File className="text-sky-700 w-5 h-5" />
+              <h1>There is No Attachment At this Course</h1>
+            </div>
+          )}
+
+          {purchase &&
             attachment.map((attachment) => {
               return (
                 <div
