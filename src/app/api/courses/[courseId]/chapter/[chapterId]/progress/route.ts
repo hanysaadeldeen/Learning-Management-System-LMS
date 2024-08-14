@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -9,27 +8,30 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
+    // const { isCompleted } = await req.json();
+    // console.log(isCompleted);
+
     if (!userId) {
-      return redirect("/");
+      return new NextResponse("Unauthorized", { status: 401 });
     }
     const requestValue = await req.json();
-    // const course = await db.course.findUnique({
+
+    // const userProgress = await db.userProgress.upsert({
     //   where: {
-    //     id: params.courseId,
+    //     chapterId_userId: {
+    //       userId,
+    //       chapterId: params.chapterId,
+    //     },
+    //   },
+    //   update: {
+    //     isCompleted,
+    //   },
+    //   create: {
     //     userId,
+    //     chapterId: params.chapterId,
+    //     isCompleted,
     //   },
     // });
-    // if (!course) {
-    //   return new NextResponse("Unauthorized at course ID", { status: 401 });
-    // }
-    // const chackpurchase = await db.purchase.findUnique({
-    //   where: {
-    //     id: params.courseId,
-    //   },
-    // });
-    // if (!chackpurchase) {
-    //   return new NextResponse("Unauthorized at Purchase ID", { status: 401 });
-    // }
 
     const chapter = await db.chapter.update({
       where: {

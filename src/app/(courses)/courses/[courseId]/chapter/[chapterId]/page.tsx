@@ -135,7 +135,7 @@ const ChapterCourseID = async ({
               nextChapterId={nextChapter?.id}
               chapter={params.chapterId}
               course={params.courseId}
-              check={chapter.isCompleted!}
+              check={chapter?.isCompleted!}
             />
           ) : (
             <EnrollCourse courseId={params.courseId} price={course.price!} />
@@ -161,29 +161,6 @@ const ChapterCourseID = async ({
           {purchase &&
             attachment.map((attachment) => {
               return (
-                // <div
-                //   key={attachment.id}
-                //   className="py-2 my-3   flex justify-between border rounded-md px-6 items-center bg-sky-300 text-slate-600"
-                // >
-                //   <div className="flex gap-x-3 items-center  w-full">
-                //     <File className="text-sky-700 w-5 h-5" />
-                //     <h1>{attachment.name}</h1>
-                //   </div>
-                //   <a
-                //     href={attachment.url}
-                //     onClick={(e) => {
-                //       e.preventDefault();
-                //       const link = document.createElement("a");
-                //       link.href = attachment.url;
-                //       link.setAttribute("download", attachment.name);
-                //       document.body.appendChild(link);
-                //       link.click();
-                //       document.body.removeChild(link);
-                //     }}
-                //   >
-                //     <Download className="hover:text-sky-900 transition cursor-pointer text-slate-500 w-5 h-5" />
-                //   </a>
-                // </div>
                 <ChapterAttachemnt
                   attachment={attachment}
                   key={attachment.id}

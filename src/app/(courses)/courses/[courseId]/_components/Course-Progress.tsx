@@ -29,8 +29,9 @@ const CourseProgressButton = ({
     try {
       setLoading(true);
       await axios.patch(`/api/courses/${course}/chapter/${chapter}/progress`, {
-        check: !check,
+        isCompleted: !check,
       });
+
       if (!nextChapterId && !check) {
         confetti.opOpn();
       }
