@@ -1,7 +1,13 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Attachment, Chapter } from "@prisma/client";
-import { CheckCircle, Download, File, TriangleAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle,
+  Download,
+  File,
+  TriangleAlert,
+} from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import VideoChapter from "./_components/videoChapter";
@@ -11,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import CourseProgress from "@/components/Course-Progress";
 import CourseProgressButton from "../../_components/Course-Progress";
 import ChapterAttachemnt from "./_components/Chapter";
+import Link from "next/link";
 
 const ChapterCourseID = async ({
   params,
@@ -114,6 +121,10 @@ const ChapterCourseID = async ({
       )}
 
       <div className="md:p-10 p-4">
+        <Link className="flex gap-x-2  mb-7 items-center" href={`/search`}>
+          <ArrowLeft className="w-5 h-5 hover:opacity-60  " />
+          <p> Back To Course </p>
+        </Link>
         <div className="max-w-2xl mx-auto">
           <VideoChapter
             vidUrl={chapter?.videoUrl!}
@@ -133,9 +144,9 @@ const ChapterCourseID = async ({
           {purchase ? (
             <CourseProgressButton
               nextChapterId={nextChapter?.id}
-              chapter={params.chapterId}
               course={params.courseId}
-              check={chapter?.isCompleted!}
+              chapter={params.chapterId}
+              check={!!chapter?.isCompleted!}
             />
           ) : (
             <EnrollCourse courseId={params.courseId} price={course.price!} />

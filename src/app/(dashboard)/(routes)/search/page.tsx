@@ -21,6 +21,8 @@ const SearchPage = async ({ searchParams }: SearchParamsType) => {
     },
   });
 
+  console.log(searchParams);
+
   const AllCourses = await GetCourse({
     userId,
     ...searchParams,
@@ -33,7 +35,7 @@ const SearchPage = async ({ searchParams }: SearchParamsType) => {
       </div>
       <div className="space-y-2">
         <Categories items={AllCategories} />
-        <CoursesList data={AllCourses} />
+        <CoursesList searchParams={searchParams} />
       </div>
     </div>
   );

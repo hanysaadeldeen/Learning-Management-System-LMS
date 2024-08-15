@@ -2,8 +2,7 @@ import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { IconBase } from "react-icons";
-import CourseProgress from "./Course-Progress";
+import { FcBookmark } from "react-icons/fc";
 
 type CourseCardProps = {
   id: string;
@@ -11,7 +10,6 @@ type CourseCardProps = {
   imgUrl: string;
   chapterLength: number;
   price: number;
-  progress: number | null;
   category: string;
 };
 
@@ -21,7 +19,6 @@ const CourseCard = ({
   imgUrl,
   chapterLength,
   price,
-  progress,
   category,
 }: CourseCardProps) => {
   return (
@@ -31,10 +28,9 @@ const CourseCard = ({
           <Image fill className="object-cover" alt={title} src={imgUrl} />
         </div>
         <div className="mt-4 px-1 flex-col  ">
-          <h2 className="capitalize group-hover:text-sky-700 max-md:text-base text-lg line-clamp-1">
+          <h2 className="capitalize group-hover:text-sky-700 font-semibold max-md:text-base text-lg line-clamp-1">
             {title}
           </h2>
-          <p className="text-sm text-muted-foreground">{category}</p>
           <div className="flex gap-x-2 items-center mt-2 mb-3">
             <BookOpen className="w-6 h-6 text-slate-500 bg-sky-300  rounded-lg p-1" />
             <p className="text-slate-500">
@@ -46,7 +42,13 @@ const CourseCard = ({
             <h2 className="ml-0.5 text-slate-700 font-medium text-md">
               ${price}
             </h2>
-            <CourseProgress progress={progress!} />
+            <div className="flex items-center gap-2">
+              <FcBookmark className="w-4 h-4" />
+
+              <div className="">
+                <p className="text-sm">{category}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import Logo from "@/app/(dashboard)/_components/(sidebar)/logo";
 import { redirect } from "next/navigation";
 import CourseProgress from "@/components/Course-Progress";
 import { Progress } from "@/components/ui/progress";
+import { GetCourse } from "@/actions/get-courses";
 
 type CourseSidebarType = {
   course: Course & {
@@ -36,7 +37,6 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
   ).length;
 
   const chapComp = (completedChapters / totalChapters) * 100;
-  console.log(chapComp);
 
   return (
     <div className="border-r h-full overflow-y-auto overflow-x-hidden">
@@ -59,7 +59,7 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
         <div className="w-full h-1 bg-gray-300 my-5"></div>
         {purhase && (
           <div className="px-[10px] flex items-start flex-col gap-4">
-            <Progress value={chapComp} className="bg-green-200" />
+            <Progress value={chapComp} className="bg-green-200 h-1.5" />
             <span className="text-[16px] text-green-700 block uppercase font-semibold">
               completed : {Math.round(chapComp)}%
             </span>

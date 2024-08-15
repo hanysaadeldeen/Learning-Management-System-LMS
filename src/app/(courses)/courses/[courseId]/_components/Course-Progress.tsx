@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
+import { cn } from "@/lib/utils";
 
 type ChapterType = {
   check: boolean;
@@ -28,6 +29,7 @@ const CourseProgressButton = ({
   const CompleteChapter = async () => {
     try {
       setLoading(true);
+
       await axios.patch(`/api/courses/${course}/chapter/${chapter}/progress`, {
         isCompleted: !check,
       });
@@ -46,11 +48,13 @@ const CourseProgressButton = ({
       setLoading(false);
     }
   };
-
   return (
     <Button
       disabled={loading}
-      className="flex items-center gap-3 max-sm:w-full max-sm:mt-3 bg-emerald-600 text-white"
+      className={cn(
+        "flex items-center gap-3 max-sm:w-full max-sm:mt-3   text-white",
+        !check ? "bg-emerald-600" : " bg-black/70 "
+      )}
       onClick={CompleteChapter}
     >
       <CheckCircle className="h-4 w-4" />

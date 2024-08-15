@@ -16,7 +16,6 @@ const FileUpload = ({ onChange, endPoint }: fileUpload) => {
       }}
       onUploadError={(err: Error) => {
         toast.error("Error uploading file: " + err?.message);
-        console.log(err?.message);
       }}
     />
   );

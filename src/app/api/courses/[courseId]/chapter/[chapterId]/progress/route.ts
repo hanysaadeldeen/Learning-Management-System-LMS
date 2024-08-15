@@ -9,7 +9,6 @@ export async function PATCH(
   try {
     const { userId } = auth();
     // const { isCompleted } = await req.json();
-    // console.log(isCompleted);
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -39,7 +38,7 @@ export async function PATCH(
         courseId: params.courseId,
       },
       data: {
-        isCompleted: requestValue.check,
+        isCompleted: requestValue.isCompleted,
       },
     });
     return NextResponse.json(chapter);

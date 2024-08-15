@@ -24,7 +24,7 @@ export const GetCourse = async ({
       where: {
         isPublished: true,
         title: {
-          contains: title,
+          contains: title?.toLowerCase(),
         },
         CategoryId,
       },

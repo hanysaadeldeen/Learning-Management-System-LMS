@@ -1,25 +1,40 @@
 import { Category, Course } from "@prisma/client";
 import React from "react";
 import CourseCard from "./Course-Card";
+import { GetCourse } from "@/actions/get-courses";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-type CourseProgressCategoryAndTitle = Course & {
-  categoryId: Category | null;
-  chapter: { id: string }[];
-  progress: number | null;
-};
+// type CourseProgressCategoryAndTitle = Course & {
+//   categoryId: Category | null;
+//   chapter: { id: string }[];
+//   progress: number | null;
+// };
 
-interface CourseListProps {
-  data: CourseProgressCategoryAndTitle[];
+// interface CourseListProps {
+//   data: CourseProgressCategoryAndTitle[];
+// }
+
+interface searchParams {
+  searchParams: {
+    title: string;
+    category: string;
+  };
 }
 
-const CoursesList = ({ data }: CourseListProps) => {
+const CoursesList = async ({ searchParams }: searchParams) => {
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
+  }
+  const AllCourses = await GetCourse({
+    userId,
+    ...searchParams,
+  });
   return (
     <div>
-      {/* <h1 className="px-2  my-4 text-xl font-bold text-slate-600 tracking-wide">
-        All Courses
-      </h1> */}
       <div className="grid sm:grid-cols-2  lg:grid-cols-3 2xl:grid-cols-4  gap-4 grid-cols-1">
-        {data.map((item) => {
+        {AllCourses.map((item) => {
           return (
             <CourseCard
               key={item.id}
@@ -28,13 +43,12 @@ const CoursesList = ({ data }: CourseListProps) => {
               imgUrl={item.imgUrl!}
               chapterLength={item.chapter.length}
               price={item.price!}
-              progress={item.progress}
-              category={item?.category?.name!}
+              category={item.category?.name!}
             />
           );
         })}
       </div>
-      {data && data.length === 0 && (
+      {AllCourses && AllCourses.length === 0 && (
         <h1 className="text-center text-slate-500 mt-10">No Courses Found</h1>
       )}
     </div>
