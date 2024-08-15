@@ -29,7 +29,7 @@ const SearchPage = async ({ searchParams }: SearchParamsType) => {
   });
 
   return (
-    <div className="p-4 md:p-10  ">
+    <div className="p-5  ">
       <div className="w-full md:hidden my-3">
         <SearchInput />
       </div>

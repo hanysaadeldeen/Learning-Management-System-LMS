@@ -8,7 +8,7 @@ const AllRoutes = [
   {
     icon: Layout,
     href: "/",
-    label: "Layout",
+    label: "Dashborad",
   },
   {
     icon: Compass,

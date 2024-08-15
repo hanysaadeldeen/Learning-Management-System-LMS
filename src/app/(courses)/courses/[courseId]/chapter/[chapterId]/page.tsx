@@ -123,7 +123,7 @@ const ChapterCourseID = async ({
       <div className="md:p-10 p-4">
         <Link className="flex gap-x-2  mb-7 items-center" href={`/search`}>
           <ArrowLeft className="w-5 h-5 hover:opacity-60  " />
-          <p> Back To Course </p>
+          <p> Back To Courses </p>
         </Link>
         <div className="max-w-2xl mx-auto">
           <VideoChapter
