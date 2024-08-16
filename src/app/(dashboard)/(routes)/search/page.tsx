@@ -21,8 +21,6 @@ const SearchPage = async ({ searchParams }: SearchParamsType) => {
     },
   });
 
-  console.log(searchParams);
-
   const AllCourses = await GetCourse({
     userId,
     ...searchParams,
