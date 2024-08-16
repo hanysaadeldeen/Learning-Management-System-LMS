@@ -1,6 +1,7 @@
 import { getAnalytics } from "@/actions/get-Analytics";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import DataCard from "./_components/DataCard";
 
 const AlanyticsPage = async () => {
   const { userId } = auth();
@@ -13,7 +14,23 @@ const AlanyticsPage = async () => {
   console.log(totalRevenue);
   console.log(totalSales);
 
-  return <h1>Analytics Page</h1>;
+  return (
+    <div className="p-5">
+      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 mb-4">
+        <DataCard
+          title={"Total Revenue"}
+          total={totalRevenue}
+          shouldFormat
+          description={"Track overall earnings seamlessly."}
+        />
+        <DataCard
+          title={"Total Sales"}
+          total={totalSales}
+          description="Monitor all sales transactions easily."
+        />
+      </div>
+    </div>
+  );
 };
 
 export default AlanyticsPage;
