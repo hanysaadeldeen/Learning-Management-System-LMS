@@ -53,7 +53,7 @@ export const POST = async (
             name: course.title,
             description: course.description!,
           },
-          unit_amount: Math.round(course.price!),
+          unit_amount: Math.round(course.price! * 100),
         },
       },
     ];

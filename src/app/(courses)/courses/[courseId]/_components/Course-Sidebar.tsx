@@ -44,9 +44,6 @@ const CourseSidebar = async ({ course, ProgressCount }: CourseSidebarType) => {
         <Link href="/">
           <div className="max-md:p-2 pt-4 px-4 flex justify-center items-center gap-4">
             <Logo />
-            <p className="font-bold text-xl text-[#E3073C]  tracking-wider">
-              LMS
-            </p>
           </div>
         </Link>
       </>
