@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 const AllRoutes = [
   {
     icon: Layout,
-    href: "/",
-    label: "Dashborad",
+    href: "/Dashboard",
+    label: "Dashboard",
   },
   {
     icon: Compass,

@@ -3,13 +3,12 @@ import { db } from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
 export default async function Home() {
   const user = await currentUser();
 
   const { userId } = auth();
   if (!userId) {
-    return redirect("/sign-up");
+    return redirect("/");
   }
 
   const GetAllCourses = await db.purchase.findMany({
